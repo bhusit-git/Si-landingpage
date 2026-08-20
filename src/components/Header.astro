@@ -1,0 +1,56 @@
+---
+import SiteMark from "./SiteMark.astro";
+
+const navItems = [
+  { href: "/th/products/", label: "ผลิตภัณฑ์" },
+  { href: "/th/super-ice/", label: "Super Ice" },
+  { href: "/th/iceberg/", label: "ICEBERG" },
+  { href: "/th/services/ice-delivery/", label: "การจัดส่ง" },
+  { href: "/th/quality-and-standards/", label: "คุณภาพ" },
+  { href: "/th/about/", label: "เกี่ยวกับเรา" },
+];
+
+const pathname = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === "/th/" ? pathname === href : pathname.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="/th/" aria-label="Super Ice Group หน้าแรก">
+      <SiteMark />
+    </a>
+
+    <nav class="desktop-nav" aria-label="เมนูหลัก">
+      {
+        navItems.map((item) => (
+          <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <a class="button button--small site-header__cta" href="/th/request-a-quote/">
+      ขอใบเสนอราคา
+    </a>
+
+    <details class="mobile-nav">
+      <summary aria-label="เมนูหลัก">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </summary>
+      <nav aria-label="เมนูหลักบนมือถือ">
+        {
+          navItems.map((item) => (
+            <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+        <a class="button" href="/th/request-a-quote/">ขอใบเสนอราคา</a>
+      </nav>
+    </details>
+  </div>
+</header>

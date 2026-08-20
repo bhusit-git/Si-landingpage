@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import PageHero from "../../components/PageHero.astro";
+import ProductVisual from "../../components/ProductVisual.astro";
+import ContactActions from "../../components/ContactActions.astro";
+import site from "../../config/site.js";
+import { brandSchema, breadcrumbSchema, organizationSchema, webPageSchema } from "../../lib/seo";
+
+const title = "Super Ice น้ำแข็งทั่วไปสำหรับธุรกิจ";
+const description =
+  "Super Ice คือแบรนด์น้ำแข็งทั่วไปของ Super Ice Group สำหรับการใช้งานประจำ พร้อมข้อมูลเพื่อประเมินสินค้า ปริมาณ และพื้นที่ก่อนสั่งซื้อ";
+const path = "/th/super-ice/";
+const breadcrumbs = [
+  { label: "หน้าแรก", href: "/th/" },
+  { label: "Super Ice", href: path },
+];
+const products = await getCollection(
+  "products",
+  ({ data }) =>
+    data.brand === "Super Ice" && !data.draft && (!site.productionReady || data.copyApproved),
+);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  schemas={[
+    organizationSchema(),
+    brandSchema({ name: "Super Ice", description, path }),
+    webPageSchema({ title, description, path }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <PageHero
+    eyebrow="SUPER ICE / STANDARD RANGE"
+    title="Super Ice สำหรับการใช้งานประจำของธุรกิจ"
+    lead="แบรนด์น้ำแข็งทั่วไปภายใต้ Super Ice Group แยกจาก ICEBERG ซึ่งเป็นกลุ่มน้ำแข็งพรีเมียม"
+    brand="Super Ice"
+  />
+
+  <section class="section brand-story">
+    <div class="container brand-story__grid">
+      <div data-reveal>
+        <p class="eyebrow" lang="en">CLEAR BRAND ROLE</p>
+        <h2>เรียบง่าย ตรงการใช้งาน และประเมินตามงานจริง</h2>
+      </div>
+      <div data-reveal>
+        <p class="lead">Super Ice รองรับโจทย์น้ำแข็งทั่วไป โดยหน้าเว็บจะอธิบายชนิดสินค้าและการใช้งานเท่าที่มีข้อมูลต้นทางรองรับ</p>
+        <p>ราคา ค่าจัดส่ง ปริมาณขั้นต่ำ และรอบจัดส่งไม่แสดงบนเว็บไซต์ ทีมงานจะยืนยันหลังได้รับรายละเอียดจากลูกค้า</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface product-family">
+    <div class="container product-family__heading" data-reveal>
+      <div>
+        <p class="eyebrow" lang="en">PRODUCT</p>
+        <h2>สินค้าที่มีข้อมูลรองรับในขณะนี้</h2>
+      </div>
+    </div>
+    <div class="container product-listing product-listing--single">
+      {
+        products.map((product) => (
+          <article class="product-card" data-reveal>
+            <ProductVisual kind={product.id} label={product.data.title} />
+            <div class="product-card__copy">
+              <p class="eyebrow" lang="en">{product.data.brand}</p>
+              <h3>{product.data.title}</h3>
+              <p>{product.data.summary}</p>
+              <a class="text-link" href={`/th/products/${product.id}/`}>ดูรายละเอียดสินค้า</a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div><p class="eyebrow" lang="en">SUPER ICE ENQUIRY</p><h2>สอบถามน้ำแข็งทั่วไปสำหรับธุรกิจ</h2><p>แจ้งชนิดการใช้งาน ปริมาณ พื้นที่ และวันที่ต้องการ เพื่อให้ทีมงานตรวจสอบตัวเลือก</p></div>
+      <div class="final-cta__actions"><a class="button" href="/th/request-a-quote/">ขอใบเสนอราคา</a><ContactActions compact /></div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,6 @@
+# Keep the locale entry point canonical and permanent.
+/ /th/ 301
+
+# Add approved one-to-one legacy redirects below. Examples remain commented
+# until the corresponding old URLs and replacement pages are confirmed.
+# /old-path/ /th/replacement-path/ 301

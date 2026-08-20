@@ -1,0 +1,68 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHero from "../../../components/PageHero.astro";
+import ContactActions from "../../../components/ContactActions.astro";
+import { breadcrumbSchema, organizationSchema, webPageSchema } from "../../../lib/seo";
+
+export async function getStaticPaths() {
+  const solutions = await getCollection("solutions", ({ data }) => !data.draft);
+  return solutions.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"solutions">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const path = `/th/solutions/${entry.id}/`;
+const breadcrumbs = [
+  { label: "หน้าแรก", href: "/th/" },
+  { label: "โซลูชัน", href: "/th/#solutions" },
+  { label: data.title, href: path },
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  path={path}
+  indexable={data.indexable}
+  schemas={[
+    organizationSchema(),
+    webPageSchema({ title: data.title, description: data.description, path }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <PageHero eyebrow={data.eyebrow} title={data.title} lead={data.hero} />
+
+  <section class="section solution-overview">
+    <div class="container solution-overview__grid">
+      <div data-reveal>
+        <p class="eyebrow" lang="en">WHAT TO PLAN FOR</p>
+        <h2>ประเด็นที่ควรประเมิน</h2>
+        <ul class="number-list">{data.concerns.map((item, index) => <li><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ul>
+      </div>
+      <div data-reveal>
+        <p class="eyebrow" lang="en">WHAT THE PAGE CONNECTS</p>
+        <h2>ข้อมูลที่ช่วยตัดสินใจ</h2>
+        <ul class="feature-list">{data.outcomes.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section section--surface">
+    <article class="container prose" data-reveal><Content /></article>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div><p class="eyebrow" lang="en">PLAN YOUR REQUIREMENT</p><h2>{data.ctaLabel}</h2><p>เตรียมพื้นที่ ชนิดการใช้งาน ปริมาณโดยประมาณ และวันที่หรือความถี่ที่ต้องการ</p></div>
+      <div class="final-cta__actions"><a class="button" href={data.ctaHref}>{data.ctaLabel}</a><ContactActions compact /></div>
+    </div>
+  </section>
+</BaseLayout>

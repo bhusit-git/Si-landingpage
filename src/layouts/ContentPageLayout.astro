@@ -1,0 +1,53 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ContactActions from "../components/ContactActions.astro";
+import { breadcrumbSchema, organizationSchema, webPageSchema } from "../lib/seo";
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+  path: string;
+  breadcrumbs: { label: string; href: string }[];
+}
+
+const { entry, path, breadcrumbs } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  path={path}
+  indexable={data.indexable}
+  schemas={[
+    organizationSchema(),
+    webPageSchema({ title: data.title, description: data.description, path }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <PageHero eyebrow={data.eyebrow} title={data.title} lead={data.hero} />
+
+  <section class="content-section">
+    <article class="container prose" data-reveal>
+      <Content />
+    </article>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div>
+        <p class="eyebrow" lang="en">NEXT STEP</p>
+        <h2>{data.ctaLabel}</h2>
+        <p>แจ้งประเภทธุรกิจ พื้นที่ ชนิดน้ำแข็ง และปริมาณโดยประมาณ เพื่อให้ทีมงานประเมินรายละเอียดที่เหมาะสม</p>
+      </div>
+      <div class="final-cta__actions">
+        <a class="button" href={data.ctaHref}>{data.ctaLabel}</a>
+        <ContactActions compact />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

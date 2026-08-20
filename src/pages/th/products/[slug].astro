@@ -1,0 +1,109 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHero from "../../../components/PageHero.astro";
+import ProductVisual from "../../../components/ProductVisual.astro";
+import ContactActions from "../../../components/ContactActions.astro";
+import site from "../../../config/site.js";
+import {
+  breadcrumbSchema,
+  organizationSchema,
+  productSchema,
+  webPageSchema,
+} from "../../../lib/seo";
+
+export async function getStaticPaths() {
+  const products = await getCollection(
+    "products",
+    ({ data }) => !data.draft && (!site.productionReady || data.copyApproved),
+  );
+  return products.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+interface Props {
+  entry: CollectionEntry<"products">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+const path = `/th/products/${entry.id}/`;
+const breadcrumbs = [
+  { label: "หน้าแรก", href: "/th/" },
+  { label: "ผลิตภัณฑ์", href: "/th/products/" },
+  { label: data.title, href: path },
+];
+const schemas: Record<string, unknown>[] = [
+  organizationSchema(),
+  webPageSchema({ title: data.title, description: data.description, path }),
+  breadcrumbSchema(breadcrumbs),
+];
+
+if (data.copyApproved) {
+  schemas.push(productSchema({ name: data.title, description: data.description, brand: data.brand, path }));
+}
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  path={path}
+  indexable={data.indexable && data.copyApproved}
+  schemas={schemas}
+  bodyClass={data.brand === "ICEBERG" ? "product-page product-page--iceberg" : "product-page"}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <PageHero
+    eyebrow={data.eyebrow}
+    title={data.title}
+    lead={data.hero}
+    dark={data.brand === "ICEBERG"}
+    brand={data.brand}
+  />
+
+  <section class="section product-detail">
+    <div class="container product-detail__grid">
+      <ProductVisual kind={entry.id} label={data.title} dark={data.brand === "ICEBERG"} />
+      <div data-reveal>
+        <p class="eyebrow" lang="en">KEY CHARACTERISTICS</p>
+        <h2>ข้อมูลสำคัญของสินค้า</h2>
+        <ul class="feature-list">
+          {data.features.map((feature) => <li>{feature}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface product-uses">
+    <div class="container product-uses__grid">
+      <div data-reveal>
+        <p class="eyebrow" lang="en">SUITABLE FOR</p>
+        <h2>การใช้งานที่เหมาะสม</h2>
+      </div>
+      <ul data-reveal>
+        {data.suitableFor.map((use, index) => <li><span>{String(index + 1).padStart(2, "0")}</span>{use}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <article class="container prose" data-reveal>
+      <Content />
+    </article>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div>
+        <p class="eyebrow" lang="en">ASK ABOUT THIS PRODUCT</p>
+        <h2>{data.ctaLabel}</h2>
+        <p>แจ้งการใช้งาน รูปแบบแก้ว ปริมาณโดยประมาณ และพื้นที่ เพื่อให้ทีมงานยืนยันสินค้าและรายละเอียดบริการ</p>
+      </div>
+      <div class="final-cta__actions">
+        <a class="button" href={data.ctaHref}>{data.ctaLabel}</a>
+        <ContactActions compact />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

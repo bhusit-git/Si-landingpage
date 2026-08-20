@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { organizationSchema, webPageSchema } from "../lib/seo";
+
+const title = "ไม่พบหน้าที่ต้องการ";
+const description = "ไม่พบหน้าที่คุณกำลังค้นหา เลือกดูผลิตภัณฑ์ บริการ หรือกลับไปหน้าแรกของ Super Ice Group";
+const path = "/404/";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  indexable={false}
+  schemas={[organizationSchema(), webPageSchema({ title, description, path })]}
+  bodyClass="not-found-page"
+>
+  <section class="not-found">
+    <div class="container not-found__grid">
+      <div>
+        <p class="eyebrow" lang="en">ERROR 404</p>
+        <h1>น้ำแข็งยังอยู่ครบ<br />แต่หน้านี้หาไม่พบ</h1>
+        <p class="lead">ลิงก์อาจถูกย้ายหรือพิมพ์ไม่ถูกต้อง ลองกลับหน้าแรกหรือเลือกดูผลิตภัณฑ์ของทั้งสองแบรนด์</p>
+        <div class="hero-actions">
+          <a class="button" href="/th/">กลับหน้าแรก</a>
+          <a class="button button--secondary" href="/th/products/">ดูผลิตภัณฑ์</a>
+        </div>
+      </div>
+      <div class="not-found__number" aria-hidden="true">404</div>
+    </div>
+  </section>
+</BaseLayout>

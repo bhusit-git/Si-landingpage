@@ -1,0 +1,107 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import PageHero from "../../../components/PageHero.astro";
+import ProductVisual from "../../../components/ProductVisual.astro";
+import ContactActions from "../../../components/ContactActions.astro";
+import site from "../../../config/site.js";
+import { breadcrumbSchema, organizationSchema, webPageSchema } from "../../../lib/seo";
+
+const title = "ผลิตภัณฑ์น้ำแข็งสำหรับธุรกิจ";
+const description =
+  "เลือกผลิตภัณฑ์จาก Super Ice สำหรับน้ำแข็งทั่วไป และ ICEBERG สำหรับน้ำแข็งพรีเมียม พร้อมข้อมูลการใช้งานก่อนติดต่อทีมงาน";
+const path = "/th/products/";
+const breadcrumbs = [
+  { label: "หน้าแรก", href: "/th/" },
+  { label: "ผลิตภัณฑ์", href: path },
+];
+const products = await getCollection(
+  "products",
+  ({ data }) => !data.draft && (!site.productionReady || data.copyApproved),
+);
+const superIceProducts = products.filter((product) => product.data.brand === "Super Ice");
+const icebergProducts = products.filter((product) => product.data.brand === "ICEBERG");
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  schemas={[
+    organizationSchema(),
+    webPageSchema({ title, description, path }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <PageHero
+    eyebrow="PRODUCT PORTFOLIO"
+    title={title}
+    lead="แยกแบรนด์ รูปทรง และลักษณะการใช้งานให้ชัดเจน โดยไม่แสดงราคา ค่าจัดส่ง หรือรอบจัดส่งบนเว็บไซต์"
+  />
+
+  <section class="section product-family">
+    <div class="container product-family__heading" data-reveal>
+      <div>
+        <p class="eyebrow" lang="en">SUPER ICE</p>
+        <h2>น้ำแข็งทั่วไปสำหรับการใช้งานประจำ</h2>
+      </div>
+      <a class="text-link" href="/th/super-ice/">รู้จัก Super Ice</a>
+    </div>
+    <div class="container product-listing product-listing--single">
+      {
+        superIceProducts.map((product) => (
+          <article class="product-card" data-reveal>
+            <ProductVisual kind={product.id} label={product.data.title} />
+            <div class="product-card__copy">
+              <p class="eyebrow" lang="en">{product.data.brand}</p>
+              <h3>{product.data.title}</h3>
+              <p>{product.data.summary}</p>
+              <a class="text-link" href={`/th/products/${product.id}/`}>ดูรายละเอียดสินค้า</a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--dark product-family">
+    <div class="container product-family__heading" data-reveal>
+      <div>
+        <p class="eyebrow" lang="en">ICEBERG</p>
+        <h2>น้ำแข็งพรีเมียมสำหรับงานเครื่องดื่ม</h2>
+      </div>
+      <a class="text-link" href="/th/iceberg/">รู้จัก ICEBERG</a>
+    </div>
+    <div class="container product-listing">
+      {
+        icebergProducts.map((product) => (
+          <article class="product-card product-card--dark" data-reveal>
+            <ProductVisual kind={product.id} label={product.data.title} dark />
+            <div class="product-card__copy">
+              <p class="eyebrow" lang="en">{product.data.brand}</p>
+              <h3>{product.data.title}</h3>
+              <p>{product.data.summary}</p>
+              <a class="text-link" href={`/th/products/${product.id}/`}>ดูรายละเอียดสินค้า</a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div>
+        <p class="eyebrow" lang="en">PRODUCT MATCHING</p>
+        <h2>ยังไม่แน่ใจว่าควรเลือกแบบไหน?</h2>
+        <p>แจ้งประเภทเครื่องดื่มหรือการใช้งาน รูปแบบแก้ว ปริมาณ และวันที่ต้องการ เพื่อให้ทีมงานช่วยประเมินตัวเลือก</p>
+      </div>
+      <div class="final-cta__actions">
+        <a class="button" href="/th/request-a-quote/">ขอคำแนะนำสินค้า</a>
+        <ContactActions compact />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

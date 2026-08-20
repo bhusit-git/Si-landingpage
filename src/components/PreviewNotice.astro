@@ -1,0 +1,16 @@
+---
+import site from "../config/site.js";
+---
+
+{
+  !site.productionReady && (
+    <aside class="preview-notice" aria-label="สถานะเว็บไซต์">
+      <div class="container preview-notice__inner">
+        <strong>เวอร์ชันตรวจทานภายใน</strong>
+        <span>
+          ข้อมูลบริษัทและผลิตภัณฑ์อ้างอิงจาก company profile กรุณาตรวจความถูกต้องก่อนเปิด production
+        </span>
+      </div>
+    </aside>
+  )
+}

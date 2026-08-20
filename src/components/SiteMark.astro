@@ -1,0 +1,14 @@
+---
+interface Props {
+  inverse?: boolean;
+}
+
+const { inverse = false } = Astro.props;
+---
+
+<span class:list={["site-mark", { inverse }]} aria-label="ชื่อเว็บไซต์ Super Ice Group">
+  <span class="mark-copy" lang="en">
+    <strong>SUPER ICE</strong>
+    <small>GROUP</small>
+  </span>
+</span>

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.DS_Store
+.env
+.env.*
+!.env.example
+npm-debug.log*
+
+# Source-review artifacts are intentionally kept out of product builds.
+tmp/
+ICEBERG Slide/
+ICEBERG Slide.pptx
+Super Ice Group.pdf.pdf
+Super Ice Group.md
+~$*

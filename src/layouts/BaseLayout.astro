@@ -1,0 +1,84 @@
+---
+import "@fontsource/kanit/300.css";
+import "@fontsource/kanit/400.css";
+import "@fontsource/kanit/500.css";
+import "@fontsource/kanit/600.css";
+import "@fontsource/kanit/700.css";
+import "../styles/global.css";
+
+import site, { hasEmail, hasLine, hasPhone } from "../config/site.js";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PreviewNotice from "../components/PreviewNotice.astro";
+import MobileContactBar from "../components/MobileContactBar.astro";
+import { absoluteUrl } from "../lib/seo";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  indexable?: boolean;
+  schemas?: Record<string, unknown>[];
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  indexable = true,
+  schemas = [],
+  bodyClass = "",
+} = Astro.props;
+
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const canonical = absoluteUrl(path);
+const hasMobileContact = hasPhone || hasLine || hasEmail;
+const robots = indexable && site.productionReady
+  ? "index,follow,max-image-preview:large"
+  : "noindex,follow";
+const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": schemas }).replace(
+  /[<>&]/g,
+  (character) => ({ "<": "\\u003c", ">": "\\u003e", "&": "\\u0026" })[character] ?? character,
+);
+---
+
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="th_TH" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="theme-color" content="#111111" />
+    {
+      schemas.length > 0 && (
+        <script is:inline type="application/ld+json" set:html={jsonLd} />
+      )
+    }
+  </head>
+  <body class:list={[bodyClass, { "has-mobile-contact": hasMobileContact }]}>
+    <a class="skip-link" href="#main-content">ข้ามไปยังเนื้อหาหลัก</a>
+    <PreviewNotice />
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    {hasMobileContact && <MobileContactBar />}
+    <script is:inline src="/scripts/site.js" defer></script>
+  </body>
+</html>

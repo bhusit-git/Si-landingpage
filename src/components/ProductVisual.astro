@@ -1,0 +1,24 @@
+---
+interface Props {
+  kind: string;
+  label: string;
+  dark?: boolean;
+}
+
+const { kind, label, dark = false } = Astro.props;
+const shape = kind.includes("ball")
+  ? "ball"
+  : kind.includes("stick")
+    ? "stick"
+    : kind.includes("shaker")
+      ? "shaker"
+      : kind.includes("tube")
+        ? "tube"
+        : "cube";
+---
+
+<div class:list={["product-visual", `product-visual--${shape}`, { "product-visual--dark": dark }]} role="img" aria-label={`กราฟิกจำลองรูปทรงเพื่อจัดวางหน้าเว็บ ไม่ใช่ภาพสินค้าจริง: ${label}`}>
+  <span class="product-visual__grid" aria-hidden="true"></span>
+  <span class="product-visual__shape" aria-hidden="true"><i></i></span>
+  <span class="product-visual__label">กราฟิกจำลอง / <span lang="en">{shape.toUpperCase()}</span></span>
+</div>

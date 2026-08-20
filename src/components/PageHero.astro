@@ -1,0 +1,29 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  dark?: boolean;
+  brand?: "Super Ice" | "ICEBERG";
+}
+
+const { eyebrow, title, lead, dark = false, brand } = Astro.props;
+---
+
+<section class:list={["page-hero", { "page-hero--dark": dark }]}>
+  <div class="container page-hero__grid">
+    <div class="page-hero__copy" data-reveal>
+      <p class="eyebrow" lang="en">{eyebrow}</p>
+      {brand && <p class="brand-label">แบรนด์ {brand}</p>}
+      <h1>{title}</h1>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class="page-hero__art" aria-hidden="true">
+      <span class="art-index">SIG / 01</span>
+      <span class="ice-outline ice-outline--one"></span>
+      <span class="ice-outline ice-outline--two"></span>
+      <span class="ice-outline ice-outline--three"></span>
+      <span class="art-caption">INFORMATION<br />PRODUCT / SERVICE</span>
+    </div>
+  </div>
+</section>

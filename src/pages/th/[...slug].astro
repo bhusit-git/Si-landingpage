@@ -1,0 +1,26 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import ContentPageLayout from "../../layouts/ContentPageLayout.astro";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages", ({ data }) => !data.draft);
+
+  return pages.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+}
+
+const { entry } = Astro.props;
+const path = `/th/${entry.id}/`;
+const breadcrumbs = [
+  { label: "หน้าแรก", href: "/th/" },
+  { label: entry.data.title, href: path },
+];
+---
+
+<ContentPageLayout entry={entry} path={path} breadcrumbs={breadcrumbs} />
