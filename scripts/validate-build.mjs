@@ -248,6 +248,31 @@ async function validate() {
     }
   }
 
+  const qualityPage = pages.get("th/quality-and-standards/index.html")?.html;
+  if (!qualityPage) {
+    fail("Missing quality-and-standards page");
+  } else {
+    for (const requiredText of [
+      "หน้าที่ 1–3 ของรายงานฉบับเดียว",
+    ]) {
+      if (!qualityPage.includes(requiredText)) {
+        fail(`/th/quality-and-standards/ is missing required document context: ${requiredText}`);
+      }
+    }
+    if (qualityPage.includes("จุลชีววิทยา")) {
+      fail("/th/quality-and-standards/ claims microbiological test evidence that is not displayed");
+    }
+    for (const documentDateLabel of [
+      "หมดอายุแล้วตามเอกสาร",
+      "วันหมดอายุตามเอกสาร",
+      "วันที่ออกรายงานตามเอกสาร",
+    ]) {
+      if (qualityPage.includes(documentDateLabel)) {
+        fail(`/th/quality-and-standards/ displays a document date: ${documentDateLabel}`);
+      }
+    }
+  }
+
   const titles = new Map();
   const descriptions = new Map();
   const canonicals = new Map();

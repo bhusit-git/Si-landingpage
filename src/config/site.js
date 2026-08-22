@@ -22,7 +22,7 @@ export const site = {
     phoneDisplay: "02-946-7811",
     line: "",
     lineId: "",
-    email: "",
+    email: "supericemail@gmail.com",
     mapUrl: "",
   },
   brandContacts: {

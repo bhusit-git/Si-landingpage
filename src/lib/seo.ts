@@ -21,6 +21,8 @@ export const organizationSchema = () => {
     ...(site.company.legalName ? { legalName: site.company.legalName } : {}),
     ...(site.company.address ? { address: site.company.address } : {}),
     url: `${site.canonicalOrigin}/th/`,
+    logo: absoluteUrl("/images/logo/super-ice-logo.png"),
+    image: absoluteUrl("/images/og-image.png"),
     description: site.company.description,
     ...(Object.keys(contactPoint).length > 0
       ? {
@@ -38,6 +40,7 @@ export const organizationSchema = () => {
         "@type": "Brand",
         name: "Super Ice",
         url: `${site.canonicalOrigin}/th/super-ice/`,
+        logo: absoluteUrl("/images/logo/super-ice-logo.png"),
       },
       {
         "@type": "Brand",
@@ -90,16 +93,23 @@ export const brandSchema = ({
   name,
   description,
   path,
+  logo,
 }: {
   name: string;
   description: string;
   path: string;
+  logo?: string;
 }) => ({
   "@type": "Brand",
   "@id": `${absoluteUrl(path)}#brand`,
   name,
   description,
   url: absoluteUrl(path),
+  ...(logo
+    ? { logo: absoluteUrl(logo) }
+    : name === "Super Ice"
+      ? { logo: absoluteUrl("/images/logo/super-ice-logo.png") }
+      : {}),
 });
 
 export const productSchema = ({

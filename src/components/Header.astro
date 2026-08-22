@@ -1,10 +1,13 @@
 ---
 import SiteMark from "./SiteMark.astro";
 
-const navItems = [
-  { href: "/th/products/", label: "ผลิตภัณฑ์" },
+const productNavItems = [
+  { href: "/th/products/", label: "ผลิตภัณฑ์ทั้งหมด" },
   { href: "/th/super-ice/", label: "Super Ice" },
   { href: "/th/iceberg/", label: "ICEBERG" },
+];
+
+const navItems = [
   { href: "/th/services/ice-delivery/", label: "การจัดส่ง" },
   { href: "/th/quality-and-standards/", label: "คุณภาพ" },
   { href: "/th/about/", label: "เกี่ยวกับเรา" },
@@ -13,6 +16,7 @@ const navItems = [
 const pathname = Astro.url.pathname;
 const isCurrent = (href: string) =>
   href === "/th/" ? pathname === href : pathname.startsWith(href);
+const isProductCurrent = productNavItems.some((item) => isCurrent(item.href));
 ---
 
 <header class="site-header">
@@ -22,6 +26,21 @@ const isCurrent = (href: string) =>
     </a>
 
     <nav class="desktop-nav" aria-label="เมนูหลัก">
+      <details class="nav-dropdown">
+        <summary aria-current={isProductCurrent ? "page" : undefined}>
+          ผลิตภัณฑ์
+          <span class="nav-dropdown__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="nav-dropdown__menu">
+          {
+            productNavItems.map((item) => (
+              <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+      </details>
       {
         navItems.map((item) => (
           <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
@@ -42,6 +61,21 @@ const isCurrent = (href: string) =>
         <span aria-hidden="true"></span>
       </summary>
       <nav aria-label="เมนูหลักบนมือถือ">
+        <details class="mobile-nav__group" open={isProductCurrent}>
+          <summary>
+            ผลิตภัณฑ์
+            <span class="nav-dropdown__icon" aria-hidden="true"></span>
+          </summary>
+          <div>
+            {
+              productNavItems.map((item) => (
+                <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                  {item.label}
+                </a>
+              ))
+            }
+          </div>
+        </details>
         {
           navItems.map((item) => (
             <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>

@@ -1,0 +1,298 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ContactActions from "../components/ContactActions.astro";
+import { breadcrumbSchema, organizationSchema, webPageSchema } from "../lib/seo";
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+  path: string;
+  breadcrumbs: { label: string; href: string }[];
+}
+
+const { entry, path, breadcrumbs } = Astro.props;
+const { data } = entry;
+
+const certificates = [
+  {
+    title: "ใบอนุญาตผลิตอาหาร",
+    holder: "ผู้ถือเอกสาร: บริษัท ซุปเปอร์ ไอซ์ จำกัด",
+    scope: "ใบอนุญาตจากหน่วยงานภาครัฐ — เอกสารอ้างอิง",
+    image: "/images/quality/certificates/food-production-license.png",
+  },
+  {
+    title: "Certificate of Approval",
+    holder: "ผู้ถือเอกสาร: บริษัท ซุปเปอร์ ไอซ์ จำกัด",
+    scope: "เอกสารรับรองจาก วว. — เอกสารอ้างอิง",
+    image: "/images/quality/certificates/tistr-approval.png",
+  },
+  {
+    title: "ผลทดสอบวัสดุบรรจุภัณฑ์",
+    holder: "รายงานจากกรมวิทยาศาสตร์บริการ",
+    scope: "ผลทดสอบวัสดุบรรจุภัณฑ์ — ไม่ใช่ใบรับรองสถานะปัจจุบัน",
+    image: "/images/quality/certificates/packaging-test-certificate.png",
+  },
+  {
+    title: "มาตรฐานผู้ผลิตบรรจุภัณฑ์",
+    holder: "ผู้ถือเอกสาร: World Packaging Industry Co., Ltd.",
+    scope: "เอกสารภายนอกของผู้ผลิตบรรจุภัณฑ์",
+    image: "/images/quality/certificates/global-packaging-standard.png",
+  },
+  {
+    title: "อุตสาหกรรมสีเขียว ระดับ 4",
+    holder: "ผู้ถือเอกสาร: บริษัท ทานตะวันอุตสาหกรรม จำกัด (มหาชน)",
+    scope: "เอกสารภายนอกของผู้ประกอบการรายอื่น",
+    image: "/images/quality/certificates/green-industry-level-4.png",
+  },
+  {
+    title: "อุตสาหกรรมสีเขียว ระดับ 2",
+    holder: "ผู้ถือเอกสาร: บริษัท เวิลด์ แพคเกจจิ้ง อินดัสตรี้ จำกัด",
+    scope: "เอกสารภายนอกของผู้ผลิตบรรจุภัณฑ์",
+    image: "/images/quality/certificates/green-industry-level-2.png",
+  },
+];
+
+const labReports = [
+  {
+    title: "หน้า 1: ลักษณะทั่วไปและเคมี",
+    description: "หน้าที่ 1 ของรายงานฉบับเดียว ครอบคลุมลักษณะทั่วไปและรายการวิเคราะห์ทางเคมี",
+    image: "/images/quality/lab-reports/physical-quality-report.png",
+  },
+  {
+    title: "หน้า 2: การวิเคราะห์ทางเคมี",
+    description: "หน้าที่ 2 ของรายงานฉบับเดียว แสดงรายการวิเคราะห์ทางเคมีเพิ่มเติม",
+    image: "/images/quality/lab-reports/chemical-quality-report.png",
+  },
+  {
+    title: "หน้า 3: โลหะและธาตุ",
+    description: "หน้าที่ 3 ของรายงานฉบับเดียว แสดงผลวิเคราะห์โลหะและธาตุ",
+    image: "/images/quality/lab-reports/microbiology-quality-report.png",
+  },
+];
+
+const processImages = [
+  { src: "/images/quality/production/ro-system.jpg", alt: "ระบบกรองน้ำ Reverse Osmosis ภายในโรงงาน", label: "ระบบกรอง RO" },
+  { src: "/images/quality/production/compressor-system.jpg", alt: "เจ้าหน้าที่ตรวจสอบระบบเครื่องจักรในโรงงาน", label: "ตรวจสอบเครื่องจักร" },
+  { src: "/images/quality/production/cooling-system.jpg", alt: "ระบบทำความเย็นและถังภายในโรงงาน", label: "ระบบทำความเย็น" },
+  { src: "/images/quality/production/ice-machine.jpg", alt: "เครื่องจักรผลิตน้ำแข็งภายในโรงงาน", label: "เครื่องผลิตน้ำแข็ง" },
+  { src: "/images/quality/production/automated-packaging.jpg", alt: "เครื่องจักรบรรจุน้ำแข็งลงถุงอัตโนมัติ", label: "บรรจุอัตโนมัติ" },
+  { src: "/images/quality/production/conveyor-line.jpg", alt: "ถุงน้ำแข็งเคลื่อนผ่านสายพานลำเลียง", label: "สายพานลำเลียง" },
+  { src: "/images/quality/production/cold-storage-1.jpg", alt: "ถุงน้ำแข็งจัดเรียงในห้องเย็น", label: "จัดเก็บในห้องเย็น" },
+  { src: "/images/quality/production/cold-storage-3.jpg", alt: "ห้องเย็นพร้อมระบบควบคุมอุณหภูมิ", label: "ควบคุมอุณหภูมิ" },
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  path={path}
+  indexable={data.indexable}
+  bodyClass="quality-page"
+  schemas={[
+    organizationSchema(),
+    webPageSchema({ title: data.title, description: data.description, path }),
+    breadcrumbSchema(breadcrumbs),
+  ]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <section class="quality-hero">
+    <div class="container quality-hero__grid">
+      <div class="quality-hero__copy" data-reveal>
+        <p class="eyebrow" lang="en">{data.eyebrow}</p>
+        <h1>{data.title}</h1>
+        <p class="lead">{data.hero}</p>
+        <p class="quality-hero__note">ควบคุมตั้งแต่ระบบน้ำ เครื่องจักร การบรรจุ และการจัดเก็บ พร้อมเอกสารสำหรับประกอบการประเมินของลูกค้าธุรกิจ</p>
+        <a class="button" href="#quality-documents">ดูเอกสารและผลตรวจ</a>
+      </div>
+
+      <div class="quality-hero__visual" aria-label="ภาพระบบการผลิตและควบคุมคุณภาพ" data-reveal>
+        <figure class="quality-hero__image quality-hero__image--main">
+          <img src="/images/quality/production/ro-system.jpg" alt="ระบบกรองน้ำ Reverse Osmosis ภายในโรงงาน" width="355" height="259" />
+        </figure>
+        <figure class="quality-hero__image">
+          <img src="/images/quality/production/automated-packaging.jpg" alt="เครื่องบรรจุน้ำแข็งอัตโนมัติ" width="273" height="501" />
+        </figure>
+        <div class="quality-hero__badge">
+          <strong>ควบคุมทุกขั้นตอน</strong>
+          <span>ตั้งแต่น้ำต้นทางถึงห้องเย็น</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quality-proof" aria-label="แนวทางควบคุมคุณภาพ">
+    <div class="container quality-proof__grid">
+      <div><strong>01</strong><span>ระบบกรองน้ำ</span></div>
+      <div><strong>02</strong><span>ตรวจวิเคราะห์</span></div>
+      <div><strong>03</strong><span>บรรจุลดการสัมผัส</span></div>
+      <div><strong>04</strong><span>จัดเก็บควบคุมอุณหภูมิ</span></div>
+    </div>
+  </section>
+
+  <section class="section quality-documents" id="quality-documents">
+    <div class="container">
+      <header class="quality-section-heading" data-reveal>
+        <div>
+          <p class="eyebrow" lang="en">CERTIFICATES & PARTNERS</p>
+          <h2>เอกสารอ้างอิงและมาตรฐานที่เกี่ยวข้อง</h2>
+        </div>
+        <p>รวบรวมเอกสารอ้างอิงของบริษัทและเอกสารภายนอกของผู้ผลิตบรรจุภัณฑ์ โดยระบุผู้ถือเอกสารและขอบเขตของเอกสาร กดที่เอกสารเพื่อดูภาพขนาดใหญ่</p>
+      </header>
+
+      <div class="certificate-grid">
+        {certificates.map((certificate) => (
+          <article class="document-card" data-reveal>
+            <button class="document-card__preview" type="button" data-document-open={certificate.image} data-document-title={certificate.title} aria-label={`ขยาย ${certificate.title}`}>
+              <img src={certificate.image} alt={certificate.title} loading="lazy" width="409" height="574" />
+              <span>ดูเอกสาร</span>
+            </button>
+            <div class="document-card__copy">
+              <h3>{certificate.title}</h3>
+              <p class="document-card__holder">{certificate.holder}</p>
+              <p>{certificate.scope}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p class="document-disclaimer">เอกสารแสดงตามภาพต้นฉบับที่ได้รับ และเอกสารภายนอกไม่ได้เป็นใบรับรองของ Super Ice Group หากต้องใช้ประกอบการจัดซื้อ กรุณาขอฉบับล่าสุดจากทีมงาน</p>
+    </div>
+  </section>
+
+  <section class="section section--surface lab-section">
+    <div class="container">
+      <header class="quality-section-heading" data-reveal>
+        <div>
+          <p class="eyebrow" lang="en">LABORATORY TESTING</p>
+          <h2>ตัวอย่างรายงานผลตรวจทางกายภาพและเคมี</h2>
+        </div>
+        <p>ภาพทั้งสามเป็นหน้าที่ 1–3 ของรายงานฉบับเดียว แสดงผลตรวจลักษณะทั่วไป รายการทางเคมี และโลหะ/ธาตุตามรายละเอียดในเอกสาร</p>
+      </header>
+
+      <div class="lab-report-grid">
+        {labReports.map((report, index) => (
+          <article class="lab-report-card" data-reveal>
+            <button type="button" data-document-open={report.image} data-document-title={report.title} aria-label={`ขยายผลตรวจ${report.title}`}>
+              <img src={report.image} alt={`ตัวอย่างรายงาน${report.title}`} loading="lazy" width="319" height="450" />
+            </button>
+            <div>
+              <span class="lab-report-card__index">0{index + 1}</span>
+              <h3>{report.title}</h3>
+              <p>{report.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section process-section">
+    <div class="container">
+      <header class="quality-section-heading" data-reveal>
+        <div>
+          <p class="eyebrow" lang="en">CONTROLLED PROCESS</p>
+          <h2>จากน้ำสะอาดถึงการจัดเก็บในห้องเย็น</h2>
+        </div>
+        <p>ภาพจากพื้นที่การผลิตแสดงระบบกรองน้ำ เครื่องจักร การบรรจุ และสภาพแวดล้อมการจัดเก็บที่อยู่ในกระบวนการควบคุม</p>
+      </header>
+
+      <ol class="process-steps" data-reveal>
+        <li><span>01</span><strong>เตรียมน้ำ</strong><small>กรองและปรับคุณภาพด้วยระบบ RO</small></li>
+        <li><span>02</span><strong>ผลิตและบรรจุ</strong><small>ควบคุมเครื่องจักรและลดการสัมผัส</small></li>
+        <li><span>03</span><strong>จัดเก็บ</strong><small>เรียงสินค้าในพื้นที่ควบคุมอุณหภูมิ</small></li>
+      </ol>
+
+      <div class="production-gallery">
+        {processImages.map((image, index) => (
+          <figure class:list={["production-gallery__item", { "production-gallery__item--wide": index === 0 || index === 6 }]} data-reveal>
+            <img src={image.src} alt={image.alt} loading="lazy" />
+            <figcaption>{image.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark quality-systems">
+    <div class="container">
+      <header class="quality-section-heading" data-reveal>
+        <div>
+          <p class="eyebrow" lang="en">CONTINUOUS IMPROVEMENT</p>
+          <h2>ประเมินผลและพัฒนาต่อเนื่อง</h2>
+        </div>
+        <p>ระบบคุณภาพไม่ได้จบที่สายการผลิต เราใช้แบบประเมิน รับฟังความเห็นลูกค้า และบันทึกข้อมูลเพื่อสนับสนุนการตรวจสอบย้อนหลัง</p>
+      </header>
+
+      <div class="quality-systems__grid">
+        <div class="quality-systems__forms" data-reveal>
+          <button type="button" data-document-open="/images/quality/systems/vendor-assessment-form.png" data-document-title="แบบฟอร์มประเมินผู้ขาย">
+            <img src="/images/quality/systems/vendor-assessment-form.png" alt="ตัวอย่างแบบฟอร์มประเมินผู้ขาย" loading="lazy" width="408" height="511" />
+            <span>แบบประเมินผู้ขาย</span>
+          </button>
+          <button type="button" data-document-open="/images/quality/systems/customer-satisfaction-form.png" data-document-title="แบบสอบถามความพึงพอใจ">
+            <img src="/images/quality/systems/customer-satisfaction-form.png" alt="ตัวอย่างแบบสอบถามความพึงพอใจของลูกค้า" loading="lazy" width="396" height="511" />
+            <span>แบบสอบถามลูกค้า</span>
+          </button>
+        </div>
+        <div class="traceability-card" data-reveal>
+          <img src="/images/quality/systems/plastic-traceability-cycle.png" alt="วงจรติดฉลาก บันทึกการใช้งาน รับคืน และรีไซเคิลถุงพลาสติก" loading="lazy" width="1260" height="686" />
+          <div>
+            <p class="eyebrow" lang="en">TRACEABILITY</p>
+            <h3>บันทึกและตรวจสอบการใช้ถุงพลาสติก</h3>
+            <p>ติดฉลากและบันทึกข้อมูลการใช้งาน รองรับการตรวจสอบย้อนหลัง การรับคืน และการส่งต่อให้ผู้รีไซเคิลที่ได้รับการรับรอง</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <div class="container final-cta__grid">
+      <div>
+        <p class="eyebrow" lang="en">QUALITY DOCUMENT REQUEST</p>
+        <h2>{data.ctaLabel}</h2>
+        <p>แจ้งประเภทเอกสาร วัตถุประสงค์การใช้งาน และข้อมูลบริษัท เพื่อให้ทีมงานจัดเตรียมเอกสารฉบับที่เหมาะสมและเป็นปัจจุบัน</p>
+      </div>
+      <div class="final-cta__actions">
+        <a class="button" href={data.ctaHref}>{data.ctaLabel}</a>
+        <ContactActions compact />
+      </div>
+    </div>
+  </section>
+
+  <dialog class="document-dialog" aria-labelledby="document-dialog-title">
+    <div class="document-dialog__bar">
+      <h2 id="document-dialog-title">เอกสาร</h2>
+      <button type="button" data-document-close aria-label="ปิดภาพเอกสาร">ปิด</button>
+    </div>
+    <div class="document-dialog__canvas">
+      <img src="/images/quality/certificates/food-production-license.png" alt="เอกสารใบอนุญาตผลิตอาหาร" />
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.querySelector<HTMLDialogElement>(".document-dialog");
+    const dialogImage = dialog?.querySelector<HTMLImageElement>("img");
+    const dialogTitle = dialog?.querySelector<HTMLElement>("#document-dialog-title");
+
+    document.querySelectorAll<HTMLButtonElement>("[data-document-open]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (!dialog || !dialogImage || !dialogTitle) return;
+        const image = button.dataset.documentOpen;
+        const title = button.dataset.documentTitle ?? "เอกสาร";
+        if (!image) return;
+        dialogImage.src = image;
+        dialogImage.alt = title;
+        dialogTitle.textContent = title;
+        dialog.showModal();
+      });
+    });
+
+    dialog?.querySelector<HTMLButtonElement>("[data-document-close]")?.addEventListener("click", () => dialog.close());
+    dialog?.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  </script>
+</BaseLayout>

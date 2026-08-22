@@ -6,9 +6,21 @@ interface Props {
 const { inverse = false } = Astro.props;
 ---
 
-<span class:list={["site-mark", { inverse }]} aria-label="ชื่อเว็บไซต์ Super Ice Group">
+<span class:list={["site-mark", { inverse }]} aria-label="Super Ice Group">
+  <img
+    class="site-mark__logo"
+    src={inverse ? "/images/logo/super-ice-logo-white.png" : "/images/logo/super-ice-logo.png"}
+    alt=""
+    width="44"
+    height="33"
+    loading="eager"
+    decoding="async"
+    aria-hidden="true"
+  />
   <span class="mark-copy" lang="en">
     <strong>SUPER ICE</strong>
     <small>GROUP</small>
   </span>
 </span>
+
+

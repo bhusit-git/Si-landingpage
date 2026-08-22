@@ -1,6 +1,7 @@
 ---
 import { getCollection, type CollectionEntry } from "astro:content";
 import ContentPageLayout from "../../layouts/ContentPageLayout.astro";
+import QualityStandardsLayout from "../../layouts/QualityStandardsLayout.astro";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages", ({ data }) => !data.draft);
@@ -23,4 +24,10 @@ const breadcrumbs = [
 ];
 ---
 
-<ContentPageLayout entry={entry} path={path} breadcrumbs={breadcrumbs} />
+{
+  entry.id === "quality-and-standards" ? (
+    <QualityStandardsLayout entry={entry} path={path} breadcrumbs={breadcrumbs} />
+  ) : (
+    <ContentPageLayout entry={entry} path={path} breadcrumbs={breadcrumbs} />
+  )
+}

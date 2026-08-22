@@ -8,19 +8,32 @@ import ContactActions from "../../components/ContactActions.astro";
 import site from "../../config/site.js";
 import { brandSchema, breadcrumbSchema, organizationSchema, webPageSchema } from "../../lib/seo";
 
-const title = "Super Ice น้ำแข็งทั่วไปสำหรับธุรกิจ";
+const title = "Super Ice น้ำแข็งสะอาด มาตรฐานที่ทุกธุรกิจไว้วางใจ";
 const description =
-  "Super Ice คือแบรนด์น้ำแข็งทั่วไปของ Super Ice Group สำหรับการใช้งานประจำ พร้อมข้อมูลเพื่อประเมินสินค้า ปริมาณ และพื้นที่ก่อนสั่งซื้อ";
+  "Super Ice ไลน์ผลิตภัณฑ์น้ำแข็งมาตรฐานสำหรับธุรกิจ รองรับการใช้งานปริมาณมาก มั่นใจในสุขอนามัยและระบบการจัดส่งที่สม่ำเสมอ";
 const path = "/th/super-ice/";
 const breadcrumbs = [
   { label: "หน้าแรก", href: "/th/" },
   { label: "Super Ice", href: path },
 ];
-const products = await getCollection(
+const productOrder = [
+  "small-tube-ice",
+  "large-tube-ice",
+  "block-ice",
+  "crushed-ice",
+  "clear-bag-packed-ice",
+];
+const getOrder = (id: string) => {
+  const idx = productOrder.indexOf(id);
+  return idx === -1 ? 99 : idx;
+};
+
+const rawProducts = await getCollection(
   "products",
   ({ data }) =>
     data.brand === "Super Ice" && !data.draft && (!site.productionReady || data.copyApproved),
 );
+const products = rawProducts.sort((a, b) => getOrder(a.id) - getOrder(b.id));
 ---
 
 <BaseLayout
@@ -37,20 +50,27 @@ const products = await getCollection(
   <Breadcrumbs items={breadcrumbs} />
   <PageHero
     eyebrow="SUPER ICE / STANDARD RANGE"
-    title="Super Ice สำหรับการใช้งานประจำของธุรกิจ"
-    lead="แบรนด์น้ำแข็งทั่วไปภายใต้ Super Ice Group แยกจาก ICEBERG ซึ่งเป็นกลุ่มน้ำแข็งพรีเมียม"
+    title="Super Ice น้ำแข็งสะอาด มาตรฐานที่ทุกธุรกิจไว้วางใจ"
+    lead="ไลน์ผลิตภัณฑ์น้ำแข็งมาตรฐานสำหรับธุรกิจ รองรับการใช้งานปริมาณมากในชีวิตประจำวัน มั่นใจได้ในสุขอนามัยและระบบการจัดส่งที่สม่ำเสมอ"
     brand="Super Ice"
   />
 
   <section class="section brand-story">
     <div class="container brand-story__grid">
       <div data-reveal>
-        <p class="eyebrow" lang="en">CLEAR BRAND ROLE</p>
-        <h2>เรียบง่าย ตรงการใช้งาน และประเมินตามงานจริง</h2>
+        <div class="brand-badge-row">
+          <img src="/images/logo/super-ice-logo.png" alt="Super Ice Logo" class="brand-hero-logo" width="72" height="54" />
+          <div>
+            <p class="eyebrow" lang="en" style="margin-bottom: 0;">HIGH-CAPACITY & HYGIENIC</p>
+            <span style="font-size: 0.85rem; color: var(--color-ice-action); font-weight: 600; letter-spacing: 0.05em;">SUPER ICE OFFICIAL BRAND</span>
+          </div>
+        </div>
+        <h2>สะอาด ได้มาตรฐาน คุ้มค่า ตอบโจทย์การใช้งานจริง</h2>
+        <p class="lead">Super Ice ออกแบบมาเพื่อรองรับการใช้งานทั่วไปในธุรกิจทุกระดับ ด้วยกำลังผลิตรวมกว่า 5,000 ตัน/วัน และระบบกรองน้ำ Reverse Osmosis (RO) บริสุทธิ์</p>
+        <p>ยินดีให้คำปรึกษาและประเมินราคา ค่าจัดส่ง รวมถึงรอบส่งมอบตามพื้นที่และความต้องการจริงของแต่ละธุรกิจตลอด 24 ชั่วโมง</p>
       </div>
-      <div data-reveal>
-        <p class="lead">Super Ice รองรับโจทย์น้ำแข็งทั่วไป โดยหน้าเว็บจะอธิบายชนิดสินค้าและการใช้งานเท่าที่มีข้อมูลต้นทางรองรับ</p>
-        <p>ราคา ค่าจัดส่ง ปริมาณขั้นต่ำ และรอบจัดส่งไม่แสดงบนเว็บไซต์ ทีมงานจะยืนยันหลังได้รับรายละเอียดจากลูกค้า</p>
+      <div data-reveal style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-line); box-shadow: 0 15px 35px -10px rgba(0, 176, 240, 0.15);">
+        <img src="/images/super-ice-factory.jpg" alt="โรงงานผลิตน้ำแข็งมาตรฐาน Super Ice Group" style="width: 100%; height: 100%; object-fit: cover;" />
       </div>
     </div>
   </section>
@@ -59,10 +79,10 @@ const products = await getCollection(
     <div class="container product-family__heading" data-reveal>
       <div>
         <p class="eyebrow" lang="en">PRODUCT</p>
-        <h2>สินค้าที่มีข้อมูลรองรับในขณะนี้</h2>
+        <h2>ผลิตภัณฑ์น้ำแข็งมาตรฐาน Super Ice</h2>
       </div>
     </div>
-    <div class="container product-listing product-listing--single">
+    <div class:list={["container", "product-listing", { "product-listing--single": products.length === 1 }]}>
       {
         products.map((product) => (
           <article class="product-card" data-reveal>
@@ -81,7 +101,7 @@ const products = await getCollection(
 
   <section class="section final-cta">
     <div class="container final-cta__grid">
-      <div><p class="eyebrow" lang="en">SUPER ICE ENQUIRY</p><h2>สอบถามน้ำแข็งทั่วไปสำหรับธุรกิจ</h2><p>แจ้งชนิดการใช้งาน ปริมาณ พื้นที่ และวันที่ต้องการ เพื่อให้ทีมงานตรวจสอบตัวเลือก</p></div>
+      <div><p class="eyebrow" lang="en">SUPER ICE ENQUIRY</p><h2>สอบถามข้อมูลน้ำแข็งสำหรับธุรกิจ</h2><p>ปรึกษาทีมงานเพื่อรับคำแนะนำเรื่องชนิดน้ำแข็ง การจัดส่ง และใบเสนอราคาพิเศษสำหรับธุรกิจคุณ</p></div>
       <div class="final-cta__actions"><a class="button" href="/th/request-a-quote/">ขอใบเสนอราคา</a><ContactActions compact /></div>
     </div>
   </section>

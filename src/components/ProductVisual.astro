@@ -6,7 +6,34 @@ interface Props {
 }
 
 const { kind, label, dark = false } = Astro.props;
-const shape = kind.includes("ball")
+
+const imageMap: Record<string, string> = {
+  "crystal-clear-ice-ball": "/images/products/crystal-clear-ice-ball.jpg",
+  "crystal-clear-ice-cube": "/images/products/crystal-clear-ice-cube.jpg",
+  "crystal-clear-ice-stick": "/images/products/crystal-clear-ice-stick.jpg",
+  "crystal-clear-ice-shaker": "/images/products/crystal-clear-ice-shaker.jpg",
+  "small-tube-ice": "/images/products/small-tube-ice.jpg",
+  "large-tube-ice": "/images/products/large-tube-ice.jpg",
+  "block-ice": "/images/products/block-ice.jpg",
+  "crushed-ice": "/images/products/crushed-ice.jpg",
+  "clear-bag-packed-ice": "/images/products/clear-bag-packed-ice.jpg",
+};
+
+const specMap: Record<string, { shape: string; size: string; melting: string }> = {
+  "crystal-clear-ice-ball": { shape: "ทรงกลมใสพิเศษ", size: "Ø 55mm / 60mm", melting: "ละลายช้ามาก (Slowest)" },
+  "crystal-clear-ice-cube": { shape: "ทรงลูกบาศก์ใส", size: "2 × 2 นิ้ว", melting: "ละลายช้า (Slow)" },
+  "crystal-clear-ice-stick": { shape: "ทรงแท่งยาวใส", size: "4 × 1.5 นิ้ว", melting: "ละลายช้า (Slow)" },
+  "crystal-clear-ice-shaker": { shape: "ทรงเชคค็อกเทล", size: "Solid Ice Block", melting: "เย็นจัด ละลายช้า" },
+  "small-tube-ice": { shape: "น้ำแข็งหลอดเล็ก", size: "Standard Tube", melting: "เย็นเร็ว คุ้มค่า" },
+  "large-tube-ice": { shape: "น้ำแข็งหลอดใหญ่", size: "Large Tube", melting: "ละลายช้า เย็นนาน" },
+  "block-ice": { shape: "น้ำแข็งซอง (ก้อน)", size: "Block Ice", melting: "ละลายช้าที่สุด แช่ของสด" },
+  "crushed-ice": { shape: "น้ำแข็งโม่/บด", size: "Crushed Flake", melting: "เย็นจัดทันที ทั่วถึง" },
+  "clear-bag-packed-ice": { shape: "น้ำแข็งแพ็คถุงใส", size: "Food-Grade Bag", melting: "สะอาด ปลอดภัย สะดวกใช้" },
+};
+
+const imageSrc = imageMap[kind];
+const spec = specMap[kind] || { shape: "ก้อนน้ำแข็ง", size: "Standard", melting: "มาตรฐาน" };
+const shapeClass = kind.includes("ball")
   ? "ball"
   : kind.includes("stick")
     ? "stick"
@@ -14,11 +41,33 @@ const shape = kind.includes("ball")
       ? "shaker"
       : kind.includes("tube")
         ? "tube"
-        : "cube";
+        : kind.includes("crushed")
+          ? "crushed"
+          : kind.includes("block")
+            ? "block"
+            : kind.includes("pack")
+              ? "pack"
+              : "cube";
 ---
 
-<div class:list={["product-visual", `product-visual--${shape}`, { "product-visual--dark": dark }]} role="img" aria-label={`กราฟิกจำลองรูปทรงเพื่อจัดวางหน้าเว็บ ไม่ใช่ภาพสินค้าจริง: ${label}`}>
-  <span class="product-visual__grid" aria-hidden="true"></span>
-  <span class="product-visual__shape" aria-hidden="true"><i></i></span>
-  <span class="product-visual__label">กราฟิกจำลอง / <span lang="en">{shape.toUpperCase()}</span></span>
+<div class:list={["product-visual", `product-visual--${shapeClass}`, { "product-visual--dark": dark, "product-visual--has-img": !!imageSrc }]} role="img" aria-label={`รูปภาพสินค้า: ${label}`}>
+  {imageSrc ? (
+    <div class="product-visual__img-wrapper">
+      <img src={imageSrc} alt={label} class="product-visual__img" loading="lazy" />
+      <div class="product-visual__shimmer" aria-hidden="true"></div>
+      <div class="product-visual__spec-badge">
+        <span class="spec-shape">{spec.shape}</span>
+        <span class="spec-size">{spec.size}</span>
+      </div>
+    </div>
+  ) : (
+    <>
+      <span class="product-visual__grid" aria-hidden="true"></span>
+      <span class="product-visual__shape" aria-hidden="true"><i></i></span>
+    </>
+  )}
+  <span class="product-visual__label">
+    <span class="melting-tag">🧊 {spec.melting}</span>
+  </span>
 </div>
+

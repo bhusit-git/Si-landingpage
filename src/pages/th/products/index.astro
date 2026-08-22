@@ -20,8 +20,28 @@ const products = await getCollection(
   "products",
   ({ data }) => !data.draft && (!site.productionReady || data.copyApproved),
 );
-const superIceProducts = products.filter((product) => product.data.brand === "Super Ice");
-const icebergProducts = products.filter((product) => product.data.brand === "ICEBERG");
+const productOrder = [
+  "small-tube-ice",
+  "large-tube-ice",
+  "block-ice",
+  "crushed-ice",
+  "clear-bag-packed-ice",
+  "crystal-clear-ice-ball",
+  "crystal-clear-ice-cube",
+  "crystal-clear-ice-stick",
+  "crystal-clear-ice-shaker",
+];
+const getOrder = (id: string) => {
+  const idx = productOrder.indexOf(id);
+  return idx === -1 ? 99 : idx;
+};
+
+const superIceProducts = products
+  .filter((product) => product.data.brand === "Super Ice")
+  .sort((a, b) => getOrder(a.id) - getOrder(b.id));
+const icebergProducts = products
+  .filter((product) => product.data.brand === "ICEBERG")
+  .sort((a, b) => getOrder(a.id) - getOrder(b.id));
 ---
 
 <BaseLayout
@@ -38,18 +58,18 @@ const icebergProducts = products.filter((product) => product.data.brand === "ICE
   <PageHero
     eyebrow="PRODUCT PORTFOLIO"
     title={title}
-    lead="แยกแบรนด์ รูปทรง และลักษณะการใช้งานให้ชัดเจน โดยไม่แสดงราคา ค่าจัดส่ง หรือรอบจัดส่งบนเว็บไซต์"
+    lead="รวบรวมผลิตภัณฑ์น้ำแข็งคุณภาพมาตรฐาน Super Ice และน้ำแข็งพรีเมียม ICEBERG ตอบโจทย์ทุกความต้องการของธุรกิจคุณ"
   />
 
   <section class="section product-family">
     <div class="container product-family__heading" data-reveal>
       <div>
         <p class="eyebrow" lang="en">SUPER ICE</p>
-        <h2>น้ำแข็งทั่วไปสำหรับการใช้งานประจำ</h2>
+        <h2>น้ำแข็งคุณภาพมาตรฐานสำหรับการใช้งานประจำ</h2>
       </div>
       <a class="text-link" href="/th/super-ice/">รู้จัก Super Ice</a>
     </div>
-    <div class="container product-listing product-listing--single">
+    <div class:list={["container", "product-listing", { "product-listing--single": superIceProducts.length === 1 }]}>
       {
         superIceProducts.map((product) => (
           <article class="product-card" data-reveal>
