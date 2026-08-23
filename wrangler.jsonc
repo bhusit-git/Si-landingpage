@@ -1,9 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "super-ice-group",
+  "name": "si-landingpage",
   "compatibility_date": "2026-08-20",
-  "workers_dev": false,
-  "preview_urls": false,
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",
