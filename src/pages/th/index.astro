@@ -306,67 +306,6 @@ const faq = [
     </div>
   </section>
 
-  <!-- INTERACTIVE ICE REQUIREMENT CALCULATOR -->
-  <section class="section" id="calculator">
-    <div class="container">
-      <div class="ice-calculator" data-reveal>
-        <div class="calc-grid">
-          <div class="calc-form">
-            <div>
-              <p class="eyebrow" lang="en">ESTIMATE REQUIREMENT</p>
-              <h2 style="font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-bottom: 0.5rem;">เครื่องคำนวณปริมาณน้ำแข็งสำหรับธุรกิจ</h2>
-              <p style="color: var(--color-muted); margin: 0;">ประเมินปริมาณน้ำแข็งที่ต้องใช้ต่อวันเพื่อวางแผนการสั่งซื้อและรอบจัดส่ง</p>
-            </div>
-
-            <div class="calc-group">
-              <label>1. เลือกประเภทธุรกิจของคุณ</label>
-              <div class="calc-type-selector" id="calcTypeSelector">
-                <button type="button" class="calc-type-btn active" data-type="cafe" data-factor="0.18">
-                  ☕ ร้านกาแฟ / คาเฟ่
-                </button>
-                <button type="button" class="calc-type-btn" data-type="bar" data-factor="0.25">
-                  🍸 บาร์ / ผับ / ค็อกเทล
-                </button>
-                <button type="button" class="calc-type-btn" data-type="restaurant" data-factor="0.3">
-                  🍽️ ร้านอาหาร / บุฟเฟต์
-                </button>
-                <button type="button" class="calc-type-btn" data-type="event" data-factor="0.35">
-                  🎪 อีเวนต์ / จัดเลี้ยง
-                </button>
-              </div>
-            </div>
-
-            <div class="calc-group">
-              <div class="calc-range-header">
-                <label for="drinksSlider" style="margin-bottom: 0;">2. จำนวนเสิร์ฟเครื่องดื่มโดยประมาณ (แก้ว/วัน)</label>
-                <span class="calc-range-value" id="drinksValueDisplay">200 แก้ว</span>
-              </div>
-              <input type="range" id="drinksSlider" class="calc-slider" min="30" max="1000" step="10" value="200" />
-            </div>
-          </div>
-
-          <div class="calc-result-card">
-            <h4>ผลการประเมินปริมาณน้ำแข็ง</h4>
-            <div class="calc-result-number">
-              <span id="calcKgResult">36</span> <span>กก. / วัน</span>
-            </div>
-            <div class="calc-result-meta">
-              <p id="calcRecommendation" style="margin: 0 0 0.5rem 0;">
-                💡 แนะนำ: <strong>Super Ice หลอดเล็ก</strong> ประมาณ 2-3 กระสอบ/วัน
-              </p>
-              <p style="margin: 0; color: #94a3b8; font-size: 0.8125rem;">
-                *ค่าคำนวณเบื้องต้น รวมเผื่ออัตราการละลายในภาชนะเก็บน้ำแข็งมาตรฐาน
-              </p>
-            </div>
-            <a class="button" id="calcQuoteBtn" href="/th/request-a-quote/">
-              ขอใบเสนอราคาตามปริมาณนี้
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- PRODUCTION PROCESS -->
   <section id="production-process" class="production-showcase" aria-labelledby="production-showcase-title">
     <div class="production-showcase__hero">
