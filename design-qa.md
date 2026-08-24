@@ -72,6 +72,77 @@ final result: passed
 
 ---
 
+# Design QA: Homepage Hero and LINE Ordering CTA
+
+- Source visual truth: `/Users/bhusitt./Desktop/ภาพถ่ายหน้าจอ2569-08-24เวลา 16.02.04.png`.
+- Source dimensions: 1574 × 624 px at 1× density.
+- Desktop implementation evidence: `/Users/bhusitt./Downloads/SIWEB/implementation-home-hero-desktop.jpg` (1574 × 624 px crop from a 1574 × 900 CSS viewport at 1× density).
+- Mobile implementation evidence: `/Users/bhusitt./Downloads/SIWEB/implementation-home-mobile-menu.png` (390 × 844 px at a 390 × 844 CSS viewport, 1× density; mobile menu open).
+- Full-view comparison evidence: `/Users/bhusitt./Downloads/SIWEB/design-qa-home-comparison.jpg` (source and implementation side by side at native size).
+- Focused comparison evidence: `/Users/bhusitt./Downloads/SIWEB/design-qa-home-focused-comparison.jpg` (headline/lead and feature rail crops at native size).
+- Route/state: Thai homepage `/th/`; hero revealed; desktop header CTA visible; mobile navigation open with LINE CTA visible.
+- Browser verification: Codex in-app browser at `http://127.0.0.1:4321/th/`.
+
+## Findings
+
+No actionable P0, P1, or P2 differences remain. The implementation preserves the existing site header above the source-matched hero, so the source's upper-left logo is represented by the persistent navigation brand instead of being duplicated inside the hero.
+
+## Full-view comparison evidence
+
+The native-size comparison confirms the same 49/51 split, diagonal white-to-image transition, three-line Thai headline, blue keyword emphasis, two-line supporting copy, ICEBERG glass composition, and overlapping three-column feature rail. The rail begins at 47 px, measures 992 px wide, and sits 16 px above the 625.9 px hero bottom, closely matching the supplied source.
+
+## Focused region comparison evidence
+
+The focused comparison keeps the typography and feature rail legible at native pixels. Kanit produces a slightly narrower headline than the raster source, but the same three-line hierarchy, 80.2 px line height, color emphasis, and section rhythm are preserved without an extra wrap. The feature labels, supporting copy, circular blue icons, separators, and rounded white surface align with the reference.
+
+## Required fidelity surfaces
+
+- Fonts and typography: Existing Kanit 300–700 files are reused. The H1 renders in three lines with a 71.6 px desktop size and 80.2 px line height; mobile wrapping remains readable and unclipped.
+- Spacing and layout rhythm: The desktop hero measures 1574 × 625.9 CSS px with zero document overflow. The 49.2/50.8 split, 48 px left inset, diagonal seam, and 108 px feature rail follow the source proportions. Mobile stacks copy, image, and proof items into one column.
+- Colors and visual tokens: Navy headline, action blue emphasis/icons, pale white surface, dark ICEBERG photography, subtle line borders, and soft rail shadow match the source while reusing the site's established palette.
+- Image quality and asset fidelity: The desktop right-side hero is source-derived at 799 × 624 px and rendered at its intended aspect. Mobile switches to the existing 1376 × 768 ICEBERG photograph for a clean responsive crop. Phosphor supplies the three feature icons; no CSS/SVG placeholder art is used.
+- Copy and content: The supplied headline, supporting statement, GMP/capacity/24-7 proof points, and “สั่งได้ทาง LINE” CTA are present. All homepage ordering CTAs use the approved ICEBERG LINE destination.
+
+## Interaction and accessibility verification
+
+- Desktop header CTA is visible and resolves to `https://line.me/R/ti/p/@icebergiceball` with `target="_blank"` and safe `rel` attributes.
+- Mobile navigation opens successfully; its “สั่งได้ทาง LINE” button is visible and resolves to the same LINE destination in a new tab.
+- Four homepage LINE CTAs were inspected and share the same destination; hidden/visible states correspond to desktop versus mobile navigation.
+- Desktop at 1574 px and mobile at 390 px both report zero document-level horizontal overflow.
+- Browser console warnings/errors: none.
+- Static Astro check, production build, route/reference validation, and same-origin asset validation: passed.
+
+## Comparison history
+
+- Initial P1: the previous hero used a boxed card image, generic overlay, floating product card, inline checkmarks, and two-column container spacing that did not match the supplied full-bleed split composition.
+  - Fix: rebuilt the hero into a source-proportioned split layout with the exact diagonal image treatment, real ICEBERG source crop, large three-line headline, and overlapping proof rail.
+  - Post-fix evidence: `design-qa-home-comparison.jpg` shows matching major-region proportions and image composition.
+- Initial P2: the existing 1376 × 768 photograph filled the narrow desktop image column by height, making the glass substantially larger than the source.
+  - Fix: created a dedicated 799 × 624 source-derived desktop hero asset and retained the higher-resolution existing photo for mobile.
+  - Post-fix evidence: the final full-view comparison aligns the glass, ICEBERG badge, background ice, seam, and feature overlap.
+- Later P2: a larger typography trial forced the second headline line to wrap, increasing the hero to four lines and 694.7 px tall.
+  - Fix: restored the 4.55 vw size, kept the corrected vertical offset, and verified a three-line 240.6 px heading inside the 625.9 px hero.
+  - Post-fix evidence: final browser metrics and focused comparison show the intended three-line state.
+
+## Follow-up polish
+
+- P3: If the hero should replace the site header entirely on the homepage, the source logo can move into the hero; the current version intentionally keeps the existing navigation and avoids duplicate branding.
+
+## Implementation checklist
+
+- [x] Source-matched desktop split layout
+- [x] Responsive mobile composition
+- [x] Source-derived ICEBERG hero imagery
+- [x] Three-column proof rail with icon-library assets
+- [x] Header, mobile menu, finder, and final CTA LINE links
+- [x] Desktop/mobile browser verification
+- [x] Console and overflow checks
+- [x] Static check, build, and route validation
+
+final result: passed
+
+---
+
 # Design QA: Homepage Production Process Showcase
 
 - Source visual truth: `/Users/bhusitt./Desktop/ภาพถ่ายหน้าจอ2569-08-21เวลา 17.40.03.png`.

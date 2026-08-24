@@ -1,5 +1,6 @@
 ---
 import SiteMark from "./SiteMark.astro";
+import site from "../config/site.js";
 
 const productNavItems = [
   { href: "/th/products/", label: "ผลิตภัณฑ์ทั้งหมด" },
@@ -50,8 +51,15 @@ const isProductCurrent = productNavItems.some((item) => isCurrent(item.href));
       }
     </nav>
 
-    <a class="button button--small site-header__cta" href="/th/request-a-quote/">
-      ขอใบเสนอราคา
+    <a
+      class="button button--small site-header__cta"
+      href={site.brandContacts.iceberg.lineUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-track="click_line"
+      data-channel="header-line"
+    >
+      สั่งได้ทาง LINE
     </a>
 
     <details class="mobile-nav">
@@ -83,7 +91,14 @@ const isProductCurrent = productNavItems.some((item) => isCurrent(item.href));
             </a>
           ))
         }
-        <a class="button" href="/th/request-a-quote/">ขอใบเสนอราคา</a>
+        <a
+          class="button"
+          href={site.brandContacts.iceberg.lineUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="click_line"
+          data-channel="mobile-menu-line"
+        >สั่งได้ทาง LINE</a>
       </nav>
     </details>
   </div>

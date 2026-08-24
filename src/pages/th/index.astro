@@ -93,42 +93,40 @@ const faq = [
 
   <!-- HERO SECTION -->
   <section class="home-hero">
-    <div class="container home-hero__grid">
+    <div class="home-hero__grid">
       <div class="home-hero__copy" data-reveal>
         <p class="eyebrow" lang="en">SUPER ICE GROUP • PRECISION IN EVERY CUBE</p>
-        <h1>ยกระดับทุกแก้วและทุกธุรกิจ ด้วยน้ำแข็งมาตรฐานสากล</h1>
+        <h1>ยกระดับทุกแก้ว<br />และทุกธุรกิจ <span>ด้วยน้ำแข็ง</span><br />มาตรฐานสากล</h1>
         <p class="home-hero__lead">
-          ผลิตและจัดส่งน้ำแข็งเกรดพรีเมียม ละลายช้า สะอาดบริสุทธิ์ รองรับตั้งแต่บาร์ระดับไฮเอนด์จนถึงภาคอุตสาหกรรม
+          ผลิตและจัดส่งน้ำแข็งเกรดพรีเมียม สะอาดบริสุทธิ์ ละลายช้า<br />รองรับตั้งแต่บาร์ระดับไฮเอนด์จนถึงภาคอุตสาหกรรม
         </p>
-
-        <div class="hero-highlights">
-          <div class="hero-highlight-item">
-            <span>✓</span> มาตรฐาน อย. & GMP 420
-          </div>
-          <div class="hero-highlight-item">
-            <span>✓</span> กำลังผลิต 5,000+ ตัน/วัน
-          </div>
-          <div class="hero-highlight-item">
-            <span>✓</span> รถขนส่งควบคุมอุณหภูมิ 24/7
-          </div>
-        </div>
-
-        <div class="hero-actions">
-          <a class="button" href="/th/request-a-quote/">ขอใบเสนอราคาด่วน</a>
-          <a class="button button--secondary" href="/th/products/">ดูแคตตาล็อกสินค้า</a>
-        </div>
       </div>
 
       <div class="home-hero__visual" data-reveal>
-        <img src="/images/iceberg-hero.jpg" alt="ICEBERG Crystal Clear Ice Ball in Whiskey Glass" class="hero-visual__img" />
-        <div class="hero-visual__overlay"></div>
-        <span class="hero-visual__badge">ICEBERG • 48H ZERO BUBBLE</span>
-        <div class="hero-visual__floating-card">
-          <div>
-            <h4>Crystal Clear Ice Ball</h4>
-            <p>ทรงกลมใสพิเศษ ละลายช้า ไม่ทำให้เครื่องดื่มเสียรสชาติ</p>
-          </div>
-          <span class="spec-pill">Ø 55 / 60 mm</span>
+        <picture>
+          <source media="(max-width: 48rem)" srcset="/images/iceberg-hero.jpg" />
+          <img
+            src="/images/iceberg-hero-reference.png"
+            alt="ICEBERG Crystal Clear Ice Ball in Whiskey Glass"
+            class="hero-visual__img"
+            width="799"
+            height="624"
+          />
+        </picture>
+      </div>
+
+      <div class="hero-highlights" aria-label="จุดเด่นของ Super Ice Group">
+        <div class="hero-highlight-item">
+          <span aria-hidden="true"><i class="ph ph-shield-check"></i></span>
+          <div><strong>มาตรฐาน อย. &amp; GMP 420</strong><small>เชื่อมั่นในคุณภาพและความปลอดภัย</small></div>
+        </div>
+        <div class="hero-highlight-item">
+          <span aria-hidden="true"><i class="ph ph-factory"></i></span>
+          <div><strong>กำลังผลิต 5,000+ ตัน/วัน</strong><small>รองรับความต้องการทุกรูปแบบธุรกิจ</small></div>
+        </div>
+        <div class="hero-highlight-item">
+          <span aria-hidden="true"><i class="ph ph-truck"></i></span>
+          <div><strong>จัดส่งควบคุมอุณหภูมิ 24/7</strong><small>สดใหม่ ตรงเวลา ทั่วประเทศ</small></div>
         </div>
       </div>
     </div>
@@ -245,7 +243,6 @@ const faq = [
     <div class="container">
       <div class="ice-finder" data-reveal>
         <div class="ice-finder__header">
-          <p class="eyebrow" lang="en" style="color: var(--color-cyan-bright);">INTERACTIVE ICE FINDER</p>
           <h3>ค้นหาทรงน้ำแข็งที่เข้ากับเมนูเครื่องดื่มของคุณ</h3>
           <p>คลิกเลือกประเภทเครื่องดื่มหรือสไตล์ร้าน เพื่อดูคำแนะนำทรงน้ำแข็ง ขนาด และคุณสมบัติที่เหมาะสมที่สุด</p>
         </div>
@@ -298,7 +295,15 @@ const faq = [
             </div>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
               <a id="finderLink" class="button" href="/th/products/crystal-clear-ice-ball/">ดูรายละเอียดสินค้า</a>
-              <a class="button button--secondary" style="border-color: rgba(255,255,255,0.3); color: #fff;" href="/th/request-a-quote/">ขอใบเสนอราคาน้ำแข็งทรงนี้</a>
+              <a
+                class="button button--secondary"
+                style="border-color: rgba(255,255,255,0.3); color: #fff;"
+                href={site.brandContacts.iceberg.lineUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="click_line"
+                data-channel="finder-line"
+              >สั่งได้ทาง LINE</a>
             </div>
           </div>
         </div>
@@ -497,7 +502,14 @@ const faq = [
         <p>แจ้งประเภทธุรกิจ พื้นที่จัดส่ง และปริมาณที่ต้องการ เพื่อให้เราประเมินแพ็กเกจที่คุ้มค่าที่สุด</p>
       </div>
       <div class="final-cta__actions" data-reveal>
-        <a class="button" href="/th/request-a-quote/">ขอใบเสนอราคาออนไลน์</a>
+        <a
+          class="button"
+          href={site.brandContacts.iceberg.lineUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="click_line"
+          data-channel="final-line"
+        >สั่งได้ทาง LINE</a>
         <ContactActions compact />
       </div>
     </div>
