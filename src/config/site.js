@@ -18,17 +18,12 @@ export const site = {
       "ผู้ผลิตและจัดส่งน้ำแข็งสำหรับธุรกิจในกรุงเทพฯ และปริมณฑล โดยมี Super Ice สำหรับน้ำแข็งทั่วไป และ ICEBERG สำหรับน้ำแข็งพรีเมียม",
   },
   contact: {
-    phone: "02-946-7811",
-    phoneDisplay: "02-946-7811",
     line: "",
     lineId: "",
-    email: "supericemail@gmail.com",
     mapUrl: "",
   },
   brandContacts: {
     iceberg: {
-      phone: "062-992-5992",
-      phoneDisplay: "062-992-5992",
       lineId: "@icebergiceball",
       lineUrl: "https://line.me/R/ti/p/@icebergiceball",
     },
@@ -111,9 +106,6 @@ export const site = {
 
 export const siteConfig = site;
 export default site;
-
-export const hasPhone = /^\+?[0-9][0-9 ().-]{7,}$/.test(site.contact.phone.trim());
-export const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contact.email.trim());
 
 export const hasLine = (() => {
   try {

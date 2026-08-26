@@ -103,8 +103,7 @@ const products = rawProducts.sort((a, b) => getOrder(a.id) - getOrder(b.id));
     <div class="container final-cta__grid">
       <div><p class="eyebrow" lang="en">ICEBERG ENQUIRY</p><h2>เลือกทรงน้ำแข็งให้เหมาะกับเมนู</h2><p>แจ้งรูปแบบแก้ว ประเภทเครื่องดื่ม ปริมาณ พื้นที่ และวันที่ใช้งาน เพื่อให้ทีมงานช่วยแนะนำตัวเลือกที่ดีที่สุดสำหรับคุณ</p></div>
       <div class="final-cta__actions">
-        <a class="button" href={`tel:${site.brandContacts.iceberg.phone}`} data-track="click_phone" data-channel="iceberg-phone">โทร {site.brandContacts.iceberg.phoneDisplay}</a>
-        <a class="button button--secondary" href={site.brandContacts.iceberg.lineUrl} data-track="click_line" data-channel="iceberg-line">LINE {site.brandContacts.iceberg.lineId}</a>
+        <a class="button" href={site.brandContacts.iceberg.lineUrl} data-track="click_line" data-channel="iceberg-line">LINE {site.brandContacts.iceberg.lineId}</a>
         <ContactActions compact />
       </div>
     </div>

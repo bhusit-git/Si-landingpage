@@ -6,7 +6,7 @@ import "@fontsource/kanit/600.css";
 import "@fontsource/kanit/700.css";
 import "../styles/global.css";
 
-import site, { hasEmail, hasLine, hasPhone } from "../config/site.js";
+import site, { hasLine } from "../config/site.js";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PreviewNotice from "../components/PreviewNotice.astro";
@@ -33,7 +33,7 @@ const {
 
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const canonical = absoluteUrl(path);
-const hasMobileContact = hasPhone || hasLine || hasEmail;
+const hasMobileContact = hasLine;
 const robots = indexable && site.productionReady
   ? "index,follow,max-image-preview:large"
   : "noindex,follow";

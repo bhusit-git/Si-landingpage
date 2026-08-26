@@ -1,5 +1,5 @@
 ---
-import site, { hasEmail, hasLine, hasPhone } from "../config/site.js";
+import site, { hasLine } from "../config/site.js";
 
 interface Props {
   compact?: boolean;
@@ -11,27 +11,11 @@ const { compact = false, onDark = false, availableOnly = false } = Astro.props;
 
 const actions = [
   {
-    key: "phone",
-    label: hasPhone ? site.contact.phoneDisplay : "โทร",
-    href: hasPhone ? `tel:${site.contact.phone}` : "/th/contact/#phone",
-    event: hasPhone ? "click_phone" : undefined,
-    available: hasPhone,
-  },
-  {
     key: "line",
     label: hasLine ? "LINE" : "LINE",
     href: hasLine ? site.contact.line : "/th/contact/#line",
     event: hasLine ? "click_line" : undefined,
     available: hasLine,
-  },
-  {
-    key: "email",
-    label: hasEmail ? "อีเมล" : "อีเมล",
-    href: hasEmail
-      ? `mailto:${site.contact.email}?subject=${encodeURIComponent("สอบถามบริการน้ำแข็ง")}`
-      : "/th/contact/#email",
-    event: hasEmail ? "click_email" : undefined,
-    available: hasEmail,
   },
 ];
 const visibleActions = actions.filter((action) => action.available);
@@ -42,13 +26,7 @@ const visibleActions = actions.filter((action) => action.available);
     visibleActions.map((action) => (
       <a href={action.href} data-track={action.event} data-channel={action.key}>
         <span class="contact-actions__icon" aria-hidden="true">
-          {action.key === "phone" ? (
-            <i class="ph ph-phone-call" />
-          ) : action.key === "line" ? (
-            <i class="ph ph-chat-circle-dots" />
-          ) : (
-            <i class="ph ph-envelope-simple" />
-          )}
+          <i class="ph ph-chat-circle-dots" />
         </span>
         <span>{action.label}</span>
       </a>
@@ -57,7 +35,7 @@ const visibleActions = actions.filter((action) => action.available);
   {
     !availableOnly && visibleActions.length === 0 && (
       <p class="contact-actions__pending">
-        โทรศัพท์ LINE และอีเมลอยู่ระหว่างยืนยันข้อมูล
+        ช่องทางติดต่ออยู่ระหว่างยืนยันข้อมูล
       </p>
     )
   }

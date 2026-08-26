@@ -53,9 +53,7 @@ try {
   errors.push("canonicalOrigin must be a valid absolute URL");
 }
 
-requireConfigured("contact.phone", site.contact?.phone);
 requireConfigured("contact.line", site.contact?.line);
-requireConfigured("contact.email", site.contact?.email);
 requireConfigured("company.legalName", site.company?.legalName);
 requireConfigured("company.address", site.company?.address);
 
@@ -71,14 +69,6 @@ if (!new Set(["www", "non-www", "apex"]).has(canonicalHostPolicy)) {
   if ((canonicalHostPolicy === "non-www" || canonicalHostPolicy === "apex") && usesWww) {
     errors.push("canonicalHostPolicy is non-www/apex but canonicalOrigin uses a www hostname");
   }
-}
-
-if (configured(site.contact?.email) && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contact.email.trim())) {
-  errors.push("contact.email must be a valid email address");
-}
-
-if (configured(site.contact?.phone) && !/^\+?[0-9][0-9 ().-]{7,}$/.test(site.contact.phone.trim())) {
-  errors.push("contact.phone must be a callable phone number using digits and standard separators");
 }
 
 if (configured(site.contact?.line)) {

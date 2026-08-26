@@ -10,8 +10,6 @@ export const absoluteUrl = (path: string) =>
 
 export const organizationSchema = () => {
   const contactPoint: Record<string, string> = {};
-  if (site.contact.phone) contactPoint.telephone = site.contact.phone;
-  if (site.contact.email) contactPoint.email = site.contact.email;
   const sameAs = [site.social.facebook, site.social.instagram].filter(Boolean);
 
   return {
