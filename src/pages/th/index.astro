@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ContactActions from "../../components/ContactActions.astro";
-import SiteMark from "../../components/SiteMark.astro";
 import site from "../../config/site.js";
 import {
   breadcrumbSchema,
@@ -332,19 +331,6 @@ const faq = [
           </a>
         </div>
 
-        <div class="production-showcase__factory-brand" aria-hidden="true">
-          <SiteMark />
-        </div>
-
-        <div class="production-showcase__signal production-showcase__signal--snow" aria-hidden="true">
-          <i class="ph ph-snowflake"></i>
-        </div>
-        <div class="production-showcase__signal production-showcase__signal--drop" aria-hidden="true">
-          <i class="ph ph-drop"></i>
-        </div>
-        <div class="production-showcase__signal production-showcase__signal--shield" aria-hidden="true">
-          <i class="ph ph-shield-check"></i>
-        </div>
       </div>
     </div>
 
