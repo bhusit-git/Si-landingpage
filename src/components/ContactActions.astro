@@ -42,7 +42,13 @@ const visibleActions = actions.filter((action) => action.available);
     visibleActions.map((action) => (
       <a href={action.href} data-track={action.event} data-channel={action.key}>
         <span class="contact-actions__icon" aria-hidden="true">
-          {action.key === "phone" ? "T" : action.key === "line" ? "L" : "E"}
+          {action.key === "phone" ? (
+            <i class="ph ph-phone-call" />
+          ) : action.key === "line" ? (
+            <i class="ph ph-chat-circle-dots" />
+          ) : (
+            <i class="ph ph-envelope-simple" />
+          )}
         </span>
         <span>{action.label}</span>
       </a>
