@@ -6,11 +6,10 @@ import "@fontsource/kanit/600.css";
 import "@fontsource/kanit/700.css";
 import "../styles/global.css";
 
-import site, { hasLine } from "../config/site.js";
+import site from "../config/site.js";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PreviewNotice from "../components/PreviewNotice.astro";
-import MobileContactBar from "../components/MobileContactBar.astro";
 import { absoluteUrl } from "../lib/seo";
 
 interface Props {
@@ -33,7 +32,6 @@ const {
 
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const canonical = absoluteUrl(path);
-const hasMobileContact = hasLine;
 const robots = indexable && site.productionReady
   ? "index,follow,max-image-preview:large"
   : "noindex,follow";
@@ -82,7 +80,7 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": sche
       )
     }
   </head>
-  <body class:list={[bodyClass, { "has-mobile-contact": hasMobileContact }]}>
+  <body class={bodyClass}>
     <a class="skip-link" href="#main-content">ข้ามไปยังเนื้อหาหลัก</a>
     <PreviewNotice />
     <Header />
@@ -90,7 +88,6 @@ const jsonLd = JSON.stringify({ "@context": "https://schema.org", "@graph": sche
       <slot />
     </main>
     <Footer />
-    {hasMobileContact && <MobileContactBar />}
     <script is:inline src="/scripts/site.js" defer></script>
   </body>
 </html>

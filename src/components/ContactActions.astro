@@ -1,5 +1,5 @@
 ---
-import site, { hasLine } from "../config/site.js";
+import site, { hasEmail, hasLine, hasPhone } from "../config/site.js";
 
 interface Props {
   compact?: boolean;
@@ -11,26 +11,63 @@ const { compact = false, onDark = false, availableOnly = false } = Astro.props;
 
 const actions = [
   {
+    key: "phone",
+    label: "โทรศัพท์",
+    href: hasPhone ? `tel:${site.contact.phone.replace(/\s/g, "")}` : undefined,
+    event: hasPhone ? "click_phone" : undefined,
+    available: hasPhone,
+    icon: "ph-phone",
+  },
+  {
+    key: "email",
+    label: "อีเมล",
+    href: hasEmail ? `mailto:${site.contact.email}` : undefined,
+    event: hasEmail ? "click_email" : undefined,
+    available: hasEmail,
+    icon: "ph-envelope-simple",
+  },
+  {
     key: "line",
-    label: hasLine ? "LINE" : "LINE",
-    href: hasLine ? site.contact.line : "/th/contact/#line",
+    label: "LINE",
+    href: hasLine ? site.contact.line : undefined,
     event: hasLine ? "click_line" : undefined,
     available: hasLine,
+    icon: "ph-chat-circle-dots",
   },
 ];
-const visibleActions = actions.filter((action) => action.available);
+const visibleActions = availableOnly
+  ? actions.filter((action) => action.available)
+  : actions.filter((action) => action.key !== "line" || action.available);
 ---
 
 <div class:list={["contact-actions", { compact, "on-dark": onDark }]}>
   {
-    visibleActions.map((action) => (
-      <a href={action.href} data-track={action.event} data-channel={action.key}>
-        <span class="contact-actions__icon" aria-hidden="true">
-          <i class="ph ph-chat-circle-dots" />
+    visibleActions.map((action) =>
+      action.available ? (
+        <a
+          class="contact-actions__item"
+          href={action.href}
+          data-track={action.event}
+          data-channel={action.key}
+        >
+          <span class="contact-actions__icon" aria-hidden="true">
+            <i class:list={["ph", action.icon]} />
+          </span>
+          <span>{action.label}</span>
+        </a>
+      ) : (
+        <span
+          class="contact-actions__item contact-actions__item--pending"
+          aria-label={`${action.label} รอยืนยันข้อมูล`}
+        >
+          <span class="contact-actions__icon" aria-hidden="true">
+            <i class:list={["ph", action.icon]} />
+          </span>
+          <span>{action.label}</span>
+          <small>รอยืนยันข้อมูล</small>
         </span>
-        <span>{action.label}</span>
-      </a>
-    ))
+      )
+    )
   }
   {
     !availableOnly && visibleActions.length === 0 && (

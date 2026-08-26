@@ -820,7 +820,7 @@ h3 {
   gap: 0.75rem;
 }
 
-.contact-actions > a {
+.contact-actions__item {
   display: grid;
   min-width: 8rem;
   min-height: 3rem;
@@ -839,6 +839,17 @@ h3 {
   border-color: var(--color-ice-action);
 }
 
+.contact-actions__item--pending {
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.contact-actions__item--pending small {
+  grid-column: 2;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
 .contact-actions__icon {
   display: grid;
   width: 1.75rem;
@@ -851,15 +862,19 @@ h3 {
   font-weight: 600;
 }
 
-.contact-actions.compact > a {
+.contact-actions.compact > .contact-actions__item {
   min-width: 0;
   grid-template-columns: auto auto;
 }
 
-.contact-actions.on-dark > a {
+.contact-actions.on-dark > .contact-actions__item {
   border-color: #4d4d4d;
   color: var(--color-white);
   background: #1c1c1c;
+}
+
+.contact-actions.on-dark > .contact-actions__item--pending {
+  color: #c8c8c8;
 }
 
 .contact-actions__pending {

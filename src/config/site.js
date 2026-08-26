@@ -18,6 +18,8 @@ export const site = {
       "ผู้ผลิตและจัดส่งน้ำแข็งสำหรับธุรกิจในกรุงเทพฯ และปริมณฑล โดยมี Super Ice สำหรับน้ำแข็งทั่วไป และ ICEBERG สำหรับน้ำแข็งพรีเมียม",
   },
   contact: {
+    phone: "",
+    email: "",
     line: "",
     lineId: "",
     mapUrl: "",
@@ -118,3 +120,6 @@ export const hasLine = (() => {
     return false;
   }
 })();
+
+export const hasPhone = site.contact.phone.trim().length > 0;
+export const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contact.email.trim());
