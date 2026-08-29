@@ -55,7 +55,29 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <section class="content-section section--surface">
+  {data.fieldPhoto && (
+    <section class="section section--surface field-proof" aria-labelledby="field-proof-title">
+      <div class="container">
+        <p class="eyebrow" lang="en" data-reveal>FIELD EXPERIENCE</p>
+        <figure class="field-proof__figure" data-reveal>
+          <img
+            src={data.fieldPhoto.src}
+            alt={data.fieldPhoto.alt}
+            width="1800"
+            height="1125"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <h2 id="field-proof-title">{data.fieldPhoto.heading}</h2>
+            <p>{data.fieldPhoto.caption}</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
+
+  <section class:list={["content-section", { "section--surface": !data.fieldPhoto }]}>
     <article class="container prose" data-reveal><Content /></article>
   </section>
 

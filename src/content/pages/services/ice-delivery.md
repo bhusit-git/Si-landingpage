@@ -10,6 +10,27 @@ indexable: true
 
 Super Ice Group ให้บริการจัดส่งน้ำแข็งสำหรับธุรกิจตลอด 24 ชั่วโมง 7 วัน 365 วัน ด้วยกองรถบรรทุกห้องเย็นและรถกระบะติดตู้ควบคุมอุณหภูมิที่ได้มาตรฐาน เพื่อรักษาความเย็นและความสะอาดจนถึงจุดหมาย ทีมงานพร้อมให้คำปรึกษาและวางแผนรอบจัดส่งให้ตรงกับความต้องการของธุรกิจคุณ
 
+## กองรถควบคุมอุณหภูมิ พร้อมให้บริการตลอด 24 ชั่วโมง
+
+<div class="fleet-gallery" aria-label="กองรถและศูนย์กระจายสินค้า Super Ice Group">
+  <figure class="fleet-gallery__featured">
+    <img src="/images/delivery/fleet-overview.webp" alt="กองรถห้องเย็น Super Ice Group จอดเรียงพร้อมให้บริการ" width="1600" height="820" loading="lazy" decoding="async" />
+    <figcaption>กองรถหลายขนาดช่วยรองรับทั้งรอบจัดส่งประจำและความต้องการในปริมาณมาก</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/delivery/distribution-yard.webp" alt="รถห้องเย็นภายในพื้นที่กระจายสินค้าของ Super Ice Group" width="1600" height="827" loading="lazy" decoding="async" />
+    <figcaption>พื้นที่เตรียมรถและกระจายสินค้าสำหรับการจัดส่งแต่ละรอบ</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/delivery/iceberg-delivery-fleet.webp" alt="รถควบคุมอุณหภูมิสำหรับจัดส่งน้ำแข็ง ICEBERG" width="1600" height="817" loading="lazy" decoding="async" />
+    <figcaption>รถควบคุมอุณหภูมิสำหรับน้ำแข็งพรีเมียม ICEBERG</figcaption>
+  </figure>
+  <figure>
+    <img src="/images/delivery/super-ice-delivery-fleet.webp" alt="รถห้องเย็น Super Ice จอดพร้อมสำหรับรอบจัดส่ง" width="1600" height="819" loading="lazy" decoding="async" />
+    <figcaption>รถห้องเย็น Super Ice รองรับรอบส่งประจำและการใช้งานปริมาณมาก</figcaption>
+  </figure>
+</div>
+
 ## ขั้นตอนการประสานงานจัดส่ง
 
 1. แจ้งประเภทธุรกิจและวัตถุประสงค์การใช้น้ำแข็ง

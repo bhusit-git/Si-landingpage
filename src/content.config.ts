@@ -44,6 +44,14 @@ const solutions = defineCollection({
     ...commonFields,
     concerns: z.array(z.string()).min(1),
     outcomes: z.array(z.string()).min(1),
+    fieldPhoto: z
+      .object({
+        src: z.string().min(1),
+        alt: z.string().min(1),
+        heading: z.string().min(1),
+        caption: z.string().min(1),
+      })
+      .optional(),
   }),
 });
 
