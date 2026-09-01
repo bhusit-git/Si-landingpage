@@ -3,10 +3,10 @@ const finderData = {
   ball: {
     brand: "ICEBERG PREMIUM",
     title: "Crystal Clear Ice Ball",
-    desc: "น้ำแข็งทรงกลมใสบริสุทธิ์ สัดส่วนสมบูรณ์แบบสำหรับแก้ว Rock ช่วยลดพื้นที่สัมผัสกับของเหลว ทำให้อัตราการละลายช้าที่สุด คงรสชาติวิสกี้และสปิริตชั้นเลิศได้ยาวนาน",
+    desc: "น้ำแข็งทรงกลมใส สัดส่วนที่เหมาะกับแก้ว Rock ช่วยลดพื้นที่สัมผัสกับของเหลวและช่วยให้ละลายช้า คงรสชาติวิสกี้และสปิริตชั้นเลิศได้ยาวนาน",
     img: "/images/products/crystal-clear-ice-ball.jpg",
     size: "เส้นผ่านศูนย์กลาง 55 มม. / 60 มม.",
-    melt: "ละลายช้าที่สุด (Ultra Slow)",
+    melt: "ละลายช้า (Slow)",
     glass: "Rock Glass / Old Fashioned",
     fit: "Whiskey, Bourbon, Negroni, Old Fashioned",
     link: "/th/products/crystal-clear-ice-ball/"
@@ -25,7 +25,7 @@ const finderData = {
   stick: {
     brand: "ICEBERG PREMIUM",
     title: "Crystal Clear Ice Stick",
-    desc: "น้ำแข็งทรงแท่งยาวใสบริสุทธิ์ ออกแบบสัดส่วนเฉพาะสำหรับแก้วทรงสูง ช่วยกระจายความเย็นสม่ำเสมอตั้งแต่ก้นแก้วถึงปากแก้ว ดูสวยงามหรูหรา",
+    desc: "น้ำแข็งทรงแท่งยาวใส ออกแบบสัดส่วนเฉพาะสำหรับแก้วทรงสูง ช่วยกระจายความเย็นสม่ำเสมอตั้งแต่ก้นแก้วถึงปากแก้ว ดูสวยงามหรูหรา",
     img: "/images/products/crystal-clear-ice-stick.jpg",
     size: "4 × 1.5 นิ้ว (100 × 38 มม.)",
     melt: "ละลายช้า (Slow)",
@@ -47,7 +47,7 @@ const finderData = {
   tube: {
     brand: "SUPER ICE STANDARD",
     title: "Small Tube Ice (น้ำแข็งหลอดเล็ก)",
-    desc: "น้ำแข็งหลอดมาตรฐานยอดนิยม ผลิตจากน้ำกรอง RO บริสุทธิ์ สด สะอาด เคี้ยวง่าย เย็นเร็ว คุ้มค่า เหมาะสำหรับร้านกาแฟ ชานม และร้านอาหารทั่วไป",
+    desc: "น้ำแข็งหลอดมาตรฐานยอดนิยม ผลิตด้วยน้ำที่ผ่านระบบกรอง RO สะอาด เคี้ยวง่าย เย็นเร็ว คุ้มค่า เหมาะสำหรับร้านกาแฟ ชานม และร้านอาหารทั่วไป",
     img: "/images/products/small-tube-ice.jpg",
     size: "Standard Small Tube",
     melt: "เย็นเร็ว คุ้มค่า",

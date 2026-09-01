@@ -22,7 +22,7 @@ export const site = {
     email: "",
     line: "",
     lineId: "",
-    mapUrl: "",
+    mapUrl: "https://maps.app.goo.gl/5f1eRKf7YFyCTBe78",
   },
   brandContacts: {
     iceberg: {
@@ -40,19 +40,19 @@ export const site = {
     googleTagManagerId: "",
   },
   aiCrawlerPolicies: {
-    GPTBot: "pending",
-    ClaudeBot: "pending",
-    "Google-Extended": "pending",
+    GPTBot: "allow",
+    ClaudeBot: "allow",
+    "Google-Extended": "allow",
   },
   publication: {
     siteCopyApproved: false,
     legalPagesApproved: false,
-    companyMetricsApproved: false,
-    deliveryAreasApproved: false,
+    companyMetricsApproved: true,
+    deliveryAreasApproved: true,
     service247Approved: false,
     customerProofApproved: false,
     certificatesApproved: false,
-    sourceImagesApproved: false,
+    sourceImagesApproved: true,
   },
   reviewFacts: [
     {
@@ -61,8 +61,8 @@ export const site = {
       label: "ประสบการณ์ในธุรกิจ",
       scope: "ข้อมูลรวม Super Ice Group",
       source: "Super Ice Group company profile, หน้า 1",
-      reviewedOn: "2026-08-20",
-      approved: false,
+      reviewedOn: "2026-08-31",
+      approved: true,
     },
     {
       id: "continuous-service",
@@ -70,8 +70,8 @@ export const site = {
       label: "การให้บริการ",
       scope: "ข้อมูลรวม Super Ice Group",
       source: "Super Ice Group company profile, หน้า 1",
-      reviewedOn: "2026-08-20",
-      approved: false,
+      reviewedOn: "2026-08-31",
+      approved: true,
     },
     {
       id: "group-capacity",
@@ -79,8 +79,8 @@ export const site = {
       label: "กำลังผลิตรวม",
       scope: "ข้อมูลรวม Super Ice Group",
       source: "Super Ice Group company profile, หน้า 1",
-      reviewedOn: "2026-08-20",
-      approved: false,
+      reviewedOn: "2026-08-31",
+      approved: true,
     },
     {
       id: "daily-commercial-customers",
@@ -88,11 +88,11 @@ export const site = {
       label: "ลูกค้าเชิงพาณิชย์รายวัน",
       scope: "ข้อมูลรวม Super Ice Group",
       source: "Super Ice Group company profile, หน้า 1",
-      reviewedOn: "2026-08-20",
-      approved: false,
+      reviewedOn: "2026-08-31",
+      approved: true,
     },
   ],
-  reviewDeliveryPoints: [
+  factoryLocations: [
     "มีนบุรี",
     "ร่มเกล้า",
     "ลาดกระบัง",
@@ -123,3 +123,4 @@ export const hasLine = (() => {
 
 export const hasPhone = site.contact.phone.trim().length > 0;
 export const hasEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contact.email.trim());
+export const hasMap = site.contact.mapUrl.trim().length > 0;

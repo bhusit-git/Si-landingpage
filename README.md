@@ -226,12 +226,12 @@ reviewer: "ชื่อผู้ตรวจทานที่ได้รับ
 - `canonicalOrigin` ยังเป็นโดเมน `.example`
 - `productionReady` เป็น `false`
 - `canonicalHostPolicy` ยังเป็น `pending` และก่อน production ต้องเลือก `www` หรือ `non-www`/`apex` ให้ตรงกับ `canonicalOrigin`
-- `company.legalName`, `company.address` และเบอร์สำนักงานอ้างอิงจาก company profile แล้ว แต่ยังต้องตรวจว่าเป็นข้อมูลสาธารณะปัจจุบัน
-- LINE กลาง อีเมล แผนที่ และ canonical domain ยังว่าง; ช่องทาง ICEBERG แยกอยู่ใน `brandContacts.iceberg`
+- `company.legalName` และ `company.address` อ้างอิงจาก company profile แล้ว; เบอร์สำนักงานยังว่าง
+- Google Maps กลางได้รับการยืนยันแล้ว แต่ LINE กลาง อีเมล และ canonical domain ยังว่าง; ช่องทาง ICEBERG แยกอยู่ใน `brandContacts.iceberg`
 - analytics ปิดอยู่และยังไม่มี GA4/GTM ID
-- `GPTBot`, `ClaudeBot` และ `Google-Extended` ยังเป็น `pending`; ค่าที่อนุญาตก่อน production มีเพียง `allow` หรือ `disallow`
-- publication flags ทุกตัวเป็น `false` จนกว่าเจ้าของข้อมูลจะตรวจเว็บรอบนี้
-- ตัวเลขใน `reviewFacts` มี source แต่ `approved: false`
+- `GPTBot`, `ClaudeBot` และ `Google-Extended` ได้รับอนุญาตด้วยค่า `allow`
+- `companyMetricsApproved`, `deliveryAreasApproved` และ `sourceImagesApproved` ได้รับการอนุมัติแล้ว; publication flags ที่เหลือยังเป็น `false`
+- ตัวเลขใน `reviewFacts` มี source และได้รับการอนุมัติเมื่อ 2026-08-31
 
 เมื่อ `productionReady: false`:
 
@@ -247,7 +247,7 @@ reviewer: "ชื่อผู้ตรวจทานที่ได้รับ
 | `siteCopyApproved` | ผู้รับผิดชอบอนุมัติข้อความหลักของเว็บไซต์และความสัมพันธ์ระหว่างแบรนด์แล้ว; ต้องเป็น `true` ก่อน production |
 | `legalPagesApproved` | ฝ่ายกฎหมายหรือผู้รับผิดชอบอนุมัติ Privacy Notice และ Cookie Policy แล้ว; ต้องเป็น `true` ก่อน production |
 | `companyMetricsApproved` | ตัวเลข ขอบเขตว่าเป็นข้อมูลกลุ่ม source และวันที่ตรวจ |
-| `deliveryAreasApproved` | รายชื่อพื้นที่และข้อจำกัดบริการ |
+| `deliveryAreasApproved` | จุดโรงงาน มาตรฐานที่ใช้ร่วมกัน ขอบเขตพื้นที่ และข้อจำกัดบริการ |
 | `service247Approved` | เวลารับสายและเงื่อนไขบริการจริง |
 | `customerProofApproved` | สิทธิ์ใช้ชื่อ โลโก้ คำรับรอง หรือกรณีศึกษา |
 | `certificatesApproved` | ความถูกต้อง วันหมดอายุ ข้อมูลที่ต้องปิด และสิทธิ์เผยแพร่ |

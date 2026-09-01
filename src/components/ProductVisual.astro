@@ -26,7 +26,7 @@ const specMap: Record<string, { shape: string; size: string; melting: string }> 
   "crystal-clear-ice-shaker": { shape: "ทรงเชคค็อกเทล", size: "Solid Ice Block", melting: "เย็นจัด ละลายช้า" },
   "small-tube-ice": { shape: "น้ำแข็งหลอดเล็ก", size: "Standard Tube", melting: "เย็นเร็ว คุ้มค่า" },
   "large-tube-ice": { shape: "น้ำแข็งหลอดใหญ่", size: "Large Tube", melting: "ละลายช้า เย็นนาน" },
-  "block-ice": { shape: "น้ำแข็งซอง (ก้อน)", size: "Block Ice", melting: "ละลายช้าที่สุด แช่ของสด" },
+  "block-ice": { shape: "น้ำแข็งซอง (ก้อน)", size: "Block Ice", melting: "ละลายช้า เหมาะสำหรับแช่ของสด" },
   "crushed-ice": { shape: "น้ำแข็งโม่/บด", size: "Crushed Flake", melting: "เย็นจัดทันที ทั่วถึง" },
   "clear-bag-packed-ice": { shape: "น้ำแข็งแพ็คถุงใส", size: "Food-Grade Bag", melting: "สะอาด ปลอดภัย สะดวกใช้" },
 };
@@ -70,4 +70,3 @@ const shapeClass = kind.includes("ball")
     <span class="melting-tag">🧊 {spec.melting}</span>
   </span>
 </div>
-

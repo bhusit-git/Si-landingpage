@@ -1,5 +1,5 @@
 ---
-import site, { hasEmail, hasLine, hasPhone } from "../config/site.js";
+import site, { hasEmail, hasLine, hasMap, hasPhone } from "../config/site.js";
 
 interface Props {
   compact?: boolean;
@@ -33,6 +33,14 @@ const actions = [
     event: hasLine ? "click_line" : undefined,
     available: hasLine,
     icon: "ph-chat-circle-dots",
+  },
+  {
+    key: "map",
+    label: "แผนที่บริษัท",
+    href: hasMap ? site.contact.mapUrl : undefined,
+    event: hasMap ? "click_map" : undefined,
+    available: hasMap,
+    icon: "ph-map-pin",
   },
 ];
 const visibleActions = availableOnly
